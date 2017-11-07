@@ -1,22 +1,21 @@
-#[cfg(test)]
-
-mod tests {
-    use super::*;
-    #[test]
-    fn score_for_a_new_game_is_zero() {
-        let game = Game::new();
-        assert_eq!(game.score, 0);
+pub mod game {
+    pub struct Game{
+        pub score: i32
     }
-}
 
-struct Game{
-    score: i32
-}
+    impl Game{
+        pub fn new() -> Game {
+            return Game{
+                score: 0
+            };
+        }
+    }
 
-impl Game{
-    fn new() -> Game {
-        return Game{
-            score: 0
-        };
+    #[cfg(test)]
+    mod tests {
+        #[test]
+        fn it_works() {
+            assert_eq!(2+2, 4);
+        }
     }
 }
