@@ -23,7 +23,7 @@ mod game_should {
     #[test]
     fn populate_up_next () {
         let defaultTetromino = Tetromino::default();
-        let generator = FakeGenerator::default();
+        let generator = FakeGenerator::new(defaultTetromino);
         let game = Game::new(&generator);
         assert_eq!(game.up_next.first, defaultTetromino);
         assert_eq!(game.up_next.second, defaultTetromino);
@@ -31,6 +31,15 @@ mod game_should {
 
     #[derive(Default)]
     struct FakeGenerator{
+        tetromino_to_generate: Tetromino
+    }
+
+    impl FakeGenerator{
+        fn new(tetromino: Tetromino) -> FakeGenerator{
+            FakeGenerator{
+                tetromino_to_generate: tetromino
+            }
+        }
     }
 
     impl GenerateTetromino for FakeGenerator{
