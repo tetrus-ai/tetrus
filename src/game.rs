@@ -7,7 +7,8 @@ pub struct Game<'a>{
     pub score: u32,
     pub well: Well,
     pub up_next: UpNext,
-    generator: &'a GenerateTetromino
+    pub in_play: Option<Tetromino>,
+    generator: &'a GenerateTetromino,
 }
 
 impl<'a> Game<'a>{
@@ -16,8 +17,13 @@ impl<'a> Game<'a>{
             score: 0,
             well: Well::empty(),
             up_next: UpNext::default(),
-            generator
+            generator,
+            in_play: None,
         }
+    }
+
+    pub fn start(&mut self) {
+        self.in_play = Some(Tetromino::default())
     }
 }
 
@@ -31,5 +37,20 @@ mod constructor_should {
         let generator = TetrominoGenerator::default();
         let game = Game::new(&generator);
         assert_eq!(game.score, 0);
+    }
+}
+
+#[cfg(test)]
+mod start_should {
+    use super::Game;
+    use ::tetromino_generator::TetrominoGenerator;
+    use ::tetromino::Tetromino;
+
+    #[test]
+    fn put_next_into_play() {
+        let generator = TetrominoGenerator::default();
+        let mut game = Game::new(&generator);
+        game.start();
+        assert_eq!(game.in_play, Some(Tetromino::default()))
     }
 }

@@ -22,11 +22,22 @@ mod game_should {
 
     #[test]
     fn populate_up_next () {
-        let defaultTetromino = Tetromino::default();
-        let generator = FakeGenerator::new(defaultTetromino);
+        let default_tetromino = Tetromino::default();
+        let generator = FakeGenerator::new(default_tetromino);
         let game = Game::new(&generator);
-        assert_eq!(game.up_next.first, defaultTetromino);
-        assert_eq!(game.up_next.second, defaultTetromino);
+        assert_eq!(game.up_next.first, default_tetromino);
+        assert_eq!(game.up_next.second, default_tetromino);
+    }
+
+    #[test]
+    fn move_first_to_in_play_when_game_starts () {
+        let default_tetromino = Tetromino::default();
+        let generator = FakeGenerator::new(default_tetromino);
+        let mut game = Game::new(&generator);
+
+        game.start();
+
+        assert_eq!(game.in_play, Some(default_tetromino));
     }
 
     #[derive(Default)]
@@ -44,7 +55,7 @@ mod game_should {
 
     impl GenerateTetromino for FakeGenerator{
         fn next(&self) -> Tetromino {
-            Tetromino::default()
+            self.tetromino_to_generate
         }
     }
 }
