@@ -9,15 +9,15 @@ pub struct Well{
 impl Well{
     pub fn empty() -> Well
     {
-        return Well{
+        Well{
             items: [[Square::empty(); 10]; 20]
-        };
+        }
     }
 }
 
 impl PartialEq for Well{
     fn eq(&self, other: &Well) -> bool {
-        return true;
+        true
     }
 }
 

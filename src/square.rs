@@ -4,19 +4,19 @@ pub struct Square{
 
 impl Square{
     pub fn empty() -> Square {
-        return Square{};
+        Square{}
     }
 }
 
 impl Clone for Square{
     fn clone(&self) -> Self {
-        return Square::empty();
+        Square::empty()
     }
 }
 
 impl PartialEq for Square{
     fn eq(&self, other: &Square) -> bool {
-        return true;
+        true
     }
 }
 

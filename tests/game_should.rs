@@ -9,6 +9,7 @@ mod game_should {
         assert_eq!(game.score, 0);
     }
 
+    #[test]
     fn have_empty_well_when_new () {
         let game = Game::new();
         assert_eq!(game.well, Well::empty());

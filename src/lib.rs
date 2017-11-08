@@ -13,10 +13,10 @@ pub mod game {
 
     impl Game{
         pub fn new() -> Game {
-            return Game{
+            Game {
                 score: 0,
                 well: Well::empty()
-            };
+            }
         }
     }
 
