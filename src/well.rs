@@ -1,6 +1,5 @@
 use super::square::Square;
-
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Well{
     // should be private
     pub items: [[Square; 10]; 20]
@@ -16,17 +15,8 @@ impl Well{
 }
 
 impl PartialEq for Well{
-    fn eq(&self, other: &Well) -> bool {
+    fn eq(&self, _other: &Well) -> bool {
         true
-    }
-}
-
-#[cfg(test)]
-mod well_should {
-    use super::Well;
-    #[test]
-    fn be_equatable() {
-        assert_eq!(Well::empty(), Well::empty())
     }
 }
 
@@ -38,9 +28,10 @@ mod empty_well_should {
     #[test]
     fn be_empty() {
         let well = Well::empty();
-        for (i, row) in well.items.iter().enumerate() {
-            for(j, well_square) in row.iter().enumerate() {
-                assert_eq!(well_square, &Square::empty());
+        let empty_square = &Square::empty();
+        for (_i, row) in well.items.iter().enumerate() {
+            for(_j, well_square) in row.iter().enumerate() {
+                assert_eq!(well_square, empty_square);
             }
         }
     }
