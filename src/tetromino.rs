@@ -1,3 +1,3 @@
-#[derive(Default)]
+#[derive(Debug, Default, PartialEq)]
 pub struct Tetromino {
 }
