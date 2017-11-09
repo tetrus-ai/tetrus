@@ -1,7 +1,16 @@
 use super::tetromino::Tetromino;
+use super::rand::{StdRng, SeedableRng};
 
-#[derive(Default)]
 pub struct TetrominoGenerator {
+    rng: StdRng
+}
+
+impl TetrominoGenerator{
+    fn new(rng: StdRng) -> Self{
+        TetrominoGenerator{
+            rng
+        }
+    }
 }
 
 pub trait GenerateTetromino{
@@ -11,6 +20,14 @@ pub trait GenerateTetromino{
 impl GenerateTetromino for TetrominoGenerator {
     fn next(&self) -> Tetromino {
         Tetromino::default()
+    }
+}
+
+impl Default for TetrominoGenerator {
+    fn default() -> Self {
+        TetrominoGenerator{
+            rng: StdRng::new().unwrap()
+        }
     }
 }
 

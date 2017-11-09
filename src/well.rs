@@ -6,7 +6,7 @@ pub struct Well{
 }
 
 impl Well{
-    pub fn empty() -> Well
+    pub fn empty() -> Self
     {
         Well{
             items: [[Square::empty(); 10]; 20]

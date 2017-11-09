@@ -12,7 +12,7 @@ pub struct Game<'a>{
 }
 
 impl<'a> Game<'a>{
-    pub fn new(generator: &'a GenerateTetromino) -> Game {
+    pub fn new(generator: &'a GenerateTetromino) -> Self {
         Game {
             score: 0,
             well: Well::empty(),

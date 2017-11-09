@@ -3,7 +3,7 @@ pub struct Square{
 }
 
 impl Square{
-    pub fn empty() -> Square {
+    pub fn empty() -> Self {
         Square{}
     }
 }

@@ -7,3 +7,4 @@ pub mod tetromino_generator;
 pub mod well;
 pub mod game;
 
+extern crate rand;
