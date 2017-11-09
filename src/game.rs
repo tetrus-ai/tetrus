@@ -1,33 +1,30 @@
 use super::well::Well;
 use super::tetromino::Tetromino;
-use super::up_next::UpNext;
+use super::in_play::InPlay;
 use super::tetromino_generator::TetrominoGenerator;
 
 pub struct Game<'a>{
     pub score: u32,
     pub well: Well,
-    pub in_play: Tetromino,
-    pub up_next: UpNext<'a>,
+    pub tetrominos: InPlay<'a>,
 }
 
 impl<'a> Game<'a>{
     pub fn new(generator: &mut TetrominoGenerator) -> Game {
-        let (up_next, in_play) = UpNext::new(generator);
+        let up_next = InPlay::new(generator);
         Game {
             score: 0,
             well: Well::empty(),
-            up_next,
-            in_play,
+            tetrominos: up_next,
         }
     }
 
     pub fn start(&mut self) -> Game {
-        let (up_next, in_play) = self.up_next.next();
+        let up_next = self.tetrominos.next();
         Game {
             score: self.score,
             well: self.well,
-            in_play,
-            up_next,
+            tetrominos: up_next,
         }
     }
 }
@@ -58,6 +55,6 @@ mod started_game_should {
         let mut generator = TetrominoGenerator::new(rng);
         let mut game = Game::new(&mut generator);
         game.start();
-        assert_eq!(game.in_play, Tetromino::L)
+        assert_eq!(game.tetrominos.current, Tetromino::L)
     }
 }

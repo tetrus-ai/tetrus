@@ -24,23 +24,14 @@ mod game_should {
 
     #[test]
     fn populate_up_next () {
-        let rng = StdRng::from_seed(&[1]);
+        let rng = StdRng::from_seed(&[2]);
         let mut generator = TetrominoGenerator::new(rng);
         let game = Game::new(&mut generator);
-        assert_eq!(game.up_next.first, Tetromino::O);
-        assert_eq!(game.up_next.second, Tetromino::L);
+        assert_eq!(game.tetrominos.current, Tetromino::I);
+        assert_eq!(game.tetrominos.first, Tetromino::Z);
+        assert_eq!(game.tetrominos.second, Tetromino::O);
     }
 
     #[test]
-    fn move_first_to_in_play_when_game_starts () {
-        let rng = StdRng::from_seed(&[1]);
-        let mut generator = TetrominoGenerator::new(rng);
-        let mut game = Game::new(&mut generator);
-
-        let game = game.start();
-
-        assert_eq!(game.in_play, Tetromino::O);
-        assert_eq!(game.up_next.first, Tetromino::L);
-        assert_eq!(game.up_next.second, Tetromino::T);
-    }
+    fn place_current_tetromino_at_5_2() {}
 }
