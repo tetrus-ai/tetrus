@@ -12,8 +12,7 @@ pub struct Game<'a>{
 
 impl<'a> Game<'a>{
     pub fn new(generator: &mut TetrominoGenerator) -> Game {
-        let mut initial = UpNext::new(generator);
-        let (up_next, in_play) = initial.next();
+        let (up_next, in_play) = UpNext::new(generator);
         Game {
             score: 0,
             well: Well::empty(),
@@ -51,12 +50,14 @@ mod started_game_should {
     use super::Game;
     use ::tetromino_generator::TetrominoGenerator;
     use ::tetromino::Tetromino;
+    use ::rand::{StdRng, SeedableRng};
 
     #[test]
     fn have_a_tetromino_in_play() {
-        let mut generator = TetrominoGenerator::default();
+        let mut rng = StdRng::from_seed(&[1]);
+        let mut generator = TetrominoGenerator::new(rng);
         let mut game = Game::new(&mut generator);
         game.start();
-        assert_eq!(game.in_play, Tetromino::O)
+        assert_eq!(game.in_play, Tetromino::L)
     }
 }

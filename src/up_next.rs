@@ -8,14 +8,16 @@ pub struct UpNext<'a>{
 }
 
 impl<'a> UpNext<'a>{
-    pub fn new(generator: &mut TetrominoGenerator) -> UpNext{
+    pub fn new(generator: &mut TetrominoGenerator) -> (UpNext, Tetromino){
         let first = generator.next().unwrap();
         let second = generator.next().unwrap();
-        UpNext{
+        let current = generator.next().unwrap();
+        let up_next = UpNext{
             generator,
             first,
             second,
-        }
+        };
+        (up_next, current)
     }
 
     pub fn next(&mut self) -> (UpNext, Tetromino) {

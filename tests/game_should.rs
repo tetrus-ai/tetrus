@@ -5,7 +5,7 @@ mod game_should {
     use tetrus::game::Game;
     use tetrus::well::Well;
     use tetrus::tetromino::Tetromino;
-    use tetrus::tetromino_generator::{TetrominoGenerator, GenerateTetromino};
+    use tetrus::tetromino_generator::{TetrominoGenerator};
     use ::rand::{StdRng, SeedableRng};
 
     #[test]
@@ -33,14 +33,14 @@ mod game_should {
 
     #[test]
     fn move_first_to_in_play_when_game_starts () {
-        let rng = StdRng::from_seed(&[2]);
+        let rng = StdRng::from_seed(&[1]);
         let mut generator = TetrominoGenerator::new(rng);
         let mut game = Game::new(&mut generator);
 
         let game = game.start();
 
-        assert_eq!(game.in_play, Tetromino::Z);
-        assert_eq!(game.up_next.first, Tetromino::O);
-        assert_eq!(game.up_next.second, Tetromino::I);
+        assert_eq!(game.in_play, Tetromino::O);
+        assert_eq!(game.up_next.first, Tetromino::L);
+        assert_eq!(game.up_next.second, Tetromino::T);
     }
 }
