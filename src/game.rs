@@ -1,5 +1,4 @@
 use super::well::Well;
-use super::tetromino::Tetromino;
 use super::in_play::InPlay;
 use super::tetromino_generator::TetrominoGenerator;
 

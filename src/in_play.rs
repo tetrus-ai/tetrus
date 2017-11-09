@@ -38,6 +38,7 @@ mod should {
     use ::rand::{StdRng, SeedableRng};
     use ::tetromino::Tetromino;
 
+    #[test]
     fn set_new_current_to_old_first() {
         let mut generator = TetrominoGenerator::default();
         let mut in_play = InPlay::new(&mut generator);
@@ -48,6 +49,7 @@ mod should {
         assert_eq!(in_play.current, expected_current);
     }
 
+    #[test]
     fn set_new_first_to_old_second() {
         let mut generator = TetrominoGenerator::default();
         let mut in_play = InPlay::new(&mut generator);
@@ -58,6 +60,7 @@ mod should {
         assert_eq!(in_play.first, expected_first);
     }
 
+    #[test]
     fn set_new_second_to_expected_from_rng() {
         let mut rng = StdRng::from_seed(&[1]);
         let mut generator = TetrominoGenerator::new(rng);
@@ -65,6 +68,6 @@ mod should {
 
         let in_play = in_play.next();
 
-        assert_eq!(in_play.second, Tetromino::O);
+        assert_eq!(in_play.second, Tetromino::T);
     }
 }
