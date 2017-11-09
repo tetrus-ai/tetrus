@@ -1,29 +1,35 @@
 use super::well::Well;
 use super::tetromino::Tetromino;
 use super::up_next::UpNext;
-use super::tetromino_generator::GenerateTetromino;
+use super::tetromino_generator::TetrominoGenerator;
 
 pub struct Game<'a>{
     pub score: u32,
     pub well: Well,
-    pub up_next: UpNext,
-    pub in_play: Option<Tetromino>,
-    generator: &'a GenerateTetromino,
+    pub in_play: Tetromino,
+    pub up_next: UpNext<'a>,
 }
 
 impl<'a> Game<'a>{
-    pub fn new(generator: &'a GenerateTetromino) -> Self {
+    pub fn new(generator: &mut TetrominoGenerator) -> Game {
+        let mut initial = UpNext::new(generator);
+        let (up_next, in_play) = initial.next();
         Game {
             score: 0,
             well: Well::empty(),
-            up_next: UpNext::default(),
-            generator,
-            in_play: None,
+            up_next,
+            in_play,
         }
     }
 
-    pub fn start(&mut self) {
-        self.in_play = Some(Tetromino::default())
+    pub fn start(&mut self) -> Game {
+        let (up_next, in_play) = self.up_next.next();
+        Game {
+            score: self.score,
+            well: self.well,
+            in_play,
+            up_next,
+        }
     }
 }
 
@@ -34,8 +40,8 @@ mod new_game_should {
 
     #[test]
     fn have_a_score_of_zero() {
-        let generator = TetrominoGenerator::default();
-        let game = Game::new(&generator);
+        let mut generator = TetrominoGenerator::default();
+        let game = Game::new(&mut generator);
         assert_eq!(game.score, 0);
     }
 }
@@ -48,9 +54,9 @@ mod started_game_should {
 
     #[test]
     fn have_a_tetromino_in_play() {
-        let generator = TetrominoGenerator::default();
-        let mut game = Game::new(&generator);
+        let mut generator = TetrominoGenerator::default();
+        let mut game = Game::new(&mut generator);
         game.start();
-        assert_eq!(game.in_play, Some(Tetromino::default()))
+        assert_eq!(game.in_play, Tetromino::O)
     }
 }

@@ -1,61 +1,46 @@
 extern crate tetrus;
+extern crate rand;
 
 mod game_should {
     use tetrus::game::Game;
     use tetrus::well::Well;
     use tetrus::tetromino::Tetromino;
-    use tetrus::tetromino_generator::GenerateTetromino;
+    use tetrus::tetromino_generator::{TetrominoGenerator, GenerateTetromino};
+    use ::rand::{StdRng, SeedableRng};
 
     #[test]
     fn have_score_zero_when_new () {
-        let generator = FakeGenerator::default();
-        let game = Game::new(&generator);
+        let mut generator = TetrominoGenerator::default();
+        let game = Game::new(&mut generator);
         assert_eq!(game.score, 0);
     }
 
     #[test]
     fn have_empty_well_when_new () {
-        let generator = FakeGenerator::default();
-        let game = Game::new(&generator);
+        let mut generator = TetrominoGenerator::default();
+        let game = Game::new(&mut generator);
         assert_eq!(game.well, Well::empty());
     }
 
     #[test]
     fn populate_up_next () {
-        let default_tetromino = Tetromino::default();
-        let generator = FakeGenerator::new(default_tetromino);
-        let game = Game::new(&generator);
-        assert_eq!(game.up_next.first, default_tetromino);
-        assert_eq!(game.up_next.second, default_tetromino);
+        let rng = StdRng::from_seed(&[1]);
+        let mut generator = TetrominoGenerator::new(rng);
+        let game = Game::new(&mut generator);
+        assert_eq!(game.up_next.first, Tetromino::O);
+        assert_eq!(game.up_next.second, Tetromino::L);
     }
 
     #[test]
     fn move_first_to_in_play_when_game_starts () {
-        let default_tetromino = Tetromino::default();
-        let generator = FakeGenerator::new(default_tetromino);
-        let mut game = Game::new(&generator);
+        let rng = StdRng::from_seed(&[2]);
+        let mut generator = TetrominoGenerator::new(rng);
+        let mut game = Game::new(&mut generator);
 
-        game.start();
+        let game = game.start();
 
-        assert_eq!(game.in_play, Some(default_tetromino));
-    }
-
-    #[derive(Default)]
-    struct FakeGenerator{
-        tetromino_to_generate: Tetromino
-    }
-
-    impl FakeGenerator{
-        fn new(tetromino: Tetromino) -> FakeGenerator{
-            FakeGenerator{
-                tetromino_to_generate: tetromino
-            }
-        }
-    }
-
-    impl GenerateTetromino for FakeGenerator{
-        fn next(&self) -> Tetromino {
-            self.tetromino_to_generate
-        }
+        assert_eq!(game.in_play, Tetromino::Z);
+        assert_eq!(game.up_next.first, Tetromino::O);
+        assert_eq!(game.up_next.second, Tetromino::I);
     }
 }

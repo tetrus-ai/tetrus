@@ -1,5 +1,5 @@
 use super::square::Square;
-#[derive(Debug, Default)]
+#[derive(Clone, Copy, Debug, Default)]
 pub struct Well{
     // should be private
     pub items: [[Square; 10]; 20]

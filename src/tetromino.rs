@@ -1,17 +1,12 @@
+use ::rand::distributions::range::SampleRange;
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Tetromino {
-    Invalid,
-    L,
+    I,
     J,
-    T,
+    L,
     S,
-    Z,
+    T,
     O,
-    I
-}
-
-impl Default for Tetromino {
-    fn default() -> Self {
-        Tetromino::Invalid
-    }
+    Z,
 }
