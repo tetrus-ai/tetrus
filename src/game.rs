@@ -1,29 +1,27 @@
 use super::well::Well;
-use super::in_play::InPlay;
+use super::in_play::UpNext;
+use super::tetromino::Tetromino;
 use super::tetromino_generator::TetrominoGenerator;
+use super::position::Position;
+use super::current::Current;
 
 pub struct Game<'a>{
     pub score: u32,
     pub well: Well,
-    pub tetrominos: InPlay<'a>,
+    pub up_next: UpNext<'a>,
+    pub current: Current
 }
 
 impl<'a> Game<'a>{
     pub fn new(generator: &mut TetrominoGenerator) -> Game {
-        let up_next = InPlay::new(generator);
+        let current_tetromino = generator.next().unwrap();
+        let current = Current::new(current_tetromino);
+        let up_next = UpNext::new(generator);
         Game {
             score: 0,
             well: Well::empty(),
-            tetrominos: up_next,
-        }
-    }
-
-    pub fn start(&mut self) -> Game {
-        let up_next = self.tetrominos.next();
-        Game {
-            score: self.score,
-            well: self.well,
-            tetrominos: up_next,
+            up_next: up_next,
+            current
         }
     }
 }
@@ -44,16 +42,16 @@ mod new_game_should {
 #[cfg(test)]
 mod started_game_should {
     use super::Game;
-    use ::tetromino_generator::TetrominoGenerator;
+    use ::position::Position;
     use ::tetromino::Tetromino;
+    use ::tetromino_generator::TetrominoGenerator;
     use ::rand::{StdRng, SeedableRng};
 
     #[test]
     fn have_a_tetromino_in_play() {
-        let mut rng = StdRng::from_seed(&[1]);
-        let mut generator = TetrominoGenerator::new(rng);
+        let mut generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
         let mut game = Game::new(&mut generator);
-        game.start();
-        assert_eq!(game.tetrominos.current, Tetromino::L)
+        assert_eq!(game.current.tetromino, Tetromino::l());
+        assert_eq!(game.current.position, Position::new(5, 2));
     }
 }

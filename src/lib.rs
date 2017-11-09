@@ -6,5 +6,7 @@ mod in_play;
 pub mod tetromino_generator;
 pub mod well;
 pub mod game;
+pub mod position;
+mod current;
 
 extern crate rand;

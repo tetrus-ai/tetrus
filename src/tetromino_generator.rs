@@ -15,13 +15,13 @@ impl TetrominoGenerator{
     pub fn next(&mut self) -> Option<Tetromino> {
         let random = self.rng.gen_range(0, 7);
         match random {
-            0 => Some(Tetromino::I),
-            1 => Some(Tetromino::J),
-            2 => Some(Tetromino::L),
-            3 => Some(Tetromino::Z),
-            4 => Some(Tetromino::S),
-            5 => Some(Tetromino::O),
-            6 => Some(Tetromino::T),
+            0 => Some(Tetromino::i()),
+            1 => Some(Tetromino::j()),
+            2 => Some(Tetromino::l()),
+            3 => Some(Tetromino::z()),
+            4 => Some(Tetromino::s()),
+            5 => Some(Tetromino::o()),
+            6 => Some(Tetromino::t()),
             _ => None
         }
     }
@@ -47,7 +47,7 @@ mod should {
         let mut generator = TetrominoGenerator::new(rng);
         let tetromino = generator.next();
 
-        assert_eq!(tetromino.unwrap(), Tetromino::O)
+        assert_eq!(tetromino.unwrap(), Tetromino::o())
     }
 
 //    fn never_generate_an_invalid_tetromino
