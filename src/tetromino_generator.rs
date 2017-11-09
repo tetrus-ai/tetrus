@@ -1,5 +1,5 @@
 use super::tetromino::Tetromino;
-use super::rand::{StdRng, SeedableRng};
+use super::rand::StdRng;
 
 pub struct TetrominoGenerator {
     rng: StdRng
@@ -32,16 +32,18 @@ impl Default for TetrominoGenerator {
 }
 
 #[cfg(test)]
-mod next_should {
+mod should {
     use super::TetrominoGenerator;
     use super::GenerateTetromino;
     use super::Tetromino;
+    use ::rand::{StdRng, SeedableRng};
 
     #[test]
     fn return_a_tetromino(){
-        let generator = TetrominoGenerator::default();
+        let rng = StdRng::from_seed(&[1usize]);
+        let generator = TetrominoGenerator::new(rng);
         let tetromino = generator.next();
 
-        assert_eq!(tetromino, Tetromino::default())
+        assert_ne!(tetromino, Tetromino::default())
     }
 }

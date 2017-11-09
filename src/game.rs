@@ -28,12 +28,12 @@ impl<'a> Game<'a>{
 }
 
 #[cfg(test)]
-mod constructor_should {
+mod new_game_should {
     use super::Game;
     use ::tetromino_generator::TetrominoGenerator;
 
     #[test]
-    fn set_score_to_zero() {
+    fn have_a_score_of_zero() {
         let generator = TetrominoGenerator::default();
         let game = Game::new(&generator);
         assert_eq!(game.score, 0);
@@ -41,13 +41,13 @@ mod constructor_should {
 }
 
 #[cfg(test)]
-mod start_should {
+mod started_game_should {
     use super::Game;
     use ::tetromino_generator::TetrominoGenerator;
     use ::tetromino::Tetromino;
 
     #[test]
-    fn put_next_into_play() {
+    fn have_a_tetromino_in_play() {
         let generator = TetrominoGenerator::default();
         let mut game = Game::new(&generator);
         game.start();
