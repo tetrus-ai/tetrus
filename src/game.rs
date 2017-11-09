@@ -1,5 +1,5 @@
 use super::well::Well;
-use super::in_play::UpNext;
+use super::up_next::UpNext;
 use super::tetromino::Tetromino;
 use super::tetromino_generator::TetrominoGenerator;
 use super::position::Position;
@@ -21,6 +21,16 @@ impl<'a> Game<'a>{
             score: 0,
             well: Well::empty(),
             up_next: up_next,
+            current
+        }
+    }
+
+    pub fn tick(&self) -> Game {
+        let current = self.current.dropByOne();
+        Game {
+            score: self.score,
+            well: self.well,
+            up_next: self.up_next,
             current
         }
     }

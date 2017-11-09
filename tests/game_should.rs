@@ -1,30 +1,30 @@
-extern crate tetrus;
 extern crate rand;
+extern crate tetrus;
 
 mod game_should {
     use tetrus::game::Game;
     use tetrus::position::Position;
     use tetrus::tetromino::Tetromino;
-    use tetrus::tetromino_generator::{TetrominoGenerator};
+    use tetrus::tetromino_generator::TetrominoGenerator;
     use tetrus::well::Well;
-    use ::rand::{StdRng, SeedableRng};
+    use rand::{SeedableRng, StdRng};
 
     #[test]
-    fn have_score_zero_when_new () {
+    fn have_score_zero_when_new() {
         let mut generator = TetrominoGenerator::default();
         let game = Game::new(&mut generator);
         assert_eq!(game.score, 0);
     }
 
     #[test]
-    fn have_empty_well_when_new () {
+    fn have_empty_well_when_new() {
         let mut generator = TetrominoGenerator::default();
         let game = Game::new(&mut generator);
         assert_eq!(game.well, Well::empty());
     }
 
     #[test]
-    fn populate_up_next () {
+    fn populate_up_next() {
         let rng = StdRng::from_seed(&[2]);
         let mut generator = TetrominoGenerator::new(rng);
         let game = Game::new(&mut generator);
@@ -38,5 +38,14 @@ mod game_should {
         let game = Game::new(&mut generator);
         assert_eq!(game.current.tetromino, Tetromino::i());
         assert_eq!(game.current.position, Position::new(5, 2));
+    }
+
+    #[test]
+    fn drop_current_piece_when_tick_finishes() {
+        let mut generator = TetrominoGenerator::default();
+        let game = Game::new(&mut generator);
+        let game = game.tick();
+
+        assert_eq!(game.current.position, Position::new(5, 3));
     }
 }

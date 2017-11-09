@@ -11,4 +11,11 @@ impl Position{
             y
         }
     }
+
+    pub fn add_to_y(&self, delta_y: u8) -> Position{
+        Position{
+            x: self.x,
+            y: self.y + delta_y
+        }
+    }
 }

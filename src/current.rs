@@ -13,4 +13,12 @@ impl Current{
             position: Position::new(5, 2)
         }
     }
+
+    pub fn dropByOne(&self) -> Current{
+        let position = self.position.add_to_y(1);
+        Current{
+            tetromino: self.tetromino,
+            position
+        }
+    }
 }
