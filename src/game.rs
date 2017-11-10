@@ -1,5 +1,5 @@
 use ::engine::command::Command;
-use ::engine::current::Current;
+use ::engine::piece::Piece;
 use ::objects::tetromino_generator::TetrominoGenerator;
 use ::objects::up_next::UpNext;
 use ::objects::well::Well;
@@ -8,13 +8,13 @@ pub struct Game{
     pub score: u32,
     pub well: Well,
     pub up_next: UpNext,
-    pub current: Current
+    pub current: Piece
 }
 
 impl Game{
     pub fn new(generator: TetrominoGenerator) -> Game {
-        let (generator, current_tetromino) = generator.next();
-        let current = Current::new(current_tetromino.unwrap());
+        let (generator, shape) = generator.next();
+        let current = Piece::new(shape.unwrap());
         let up_next = UpNext::new(generator);
         Game {
             score: 0,
@@ -35,24 +35,18 @@ impl Game{
     }
 
     pub fn issue_command(&self, command: Command) -> Game {
-        let current = match command {
+        Game {
+            score: self.score,
+            well: self.well,
+            up_next: self.up_next,
+            current: self.execute_command(command) 
+        }
+    }
+    
+    fn execute_command(&self, command: Command) -> Piece{
+        match command {
             Command::MoveLeft => self.current.move_left(),
-            Command::MoveRight => Some(self.current.move_right())
-        };
-
-        match current {
-            Some(x) => Game {
-                score: self.score,
-                well: self.well,
-                up_next: self.up_next,
-                current: x
-            },
-            None => Game {
-                score: self.score,
-                well: self.well,
-                up_next: self.up_next,
-                current: self.current
-            }
+            Command::MoveRight => self.current.move_right()
         }
     }
 }
@@ -74,7 +68,7 @@ mod new_game_should {
 mod started_game_should {
     use super::Game;
     use ::engine::position::Position;
-    use ::objects::tetromino::Tetromino;
+    use ::objects::shape::Shape;
     use ::objects::tetromino_generator::TetrominoGenerator;
     use ::rand::{StdRng, SeedableRng};
 
@@ -82,7 +76,7 @@ mod started_game_should {
     fn have_a_tetromino_in_play() {
         let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
         let game = Game::new(generator);
-        assert_eq!(game.current.tetromino, Tetromino::l());
+        assert_eq!(game.current.shape, Shape::l());
         assert_eq!(game.current.position, Position::new(5, 2));
     }
 }
@@ -114,20 +108,5 @@ mod should {
         let game = game.issue_command(right_command);
 
         assert_eq!(game.current.position, Position::new(6, 2))
-    }
-
-    #[test]
-    fn not_make_an_illegal_move(){
-        let generator = TetrominoGenerator::default();
-        let mut game = Game::new(generator);
-        game.current.position = Position::new(0, 0);
-        
-        let initial_position = game.current.position;
-
-        let left_command = Command::MoveLeft;
-
-        let game = game.issue_command(left_command);
-
-        assert_eq!(game.current.position, initial_position);
     }
 }

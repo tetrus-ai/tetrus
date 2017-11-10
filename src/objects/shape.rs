@@ -1,32 +1,32 @@
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Tetromino {
+pub struct Shape {
 }
 
-impl Tetromino{
+impl Shape {
     fn new() -> Self{
-        Tetromino{
+        Shape {
         }
     }
 
     pub fn i() -> Self{
-        Tetromino::new()
+        Shape::new()
     }
     pub fn j() -> Self{
-        Tetromino::new()
+        Shape::new()
     }
     pub fn l() -> Self{
-        Tetromino::new()
+        Shape::new()
     }
     pub fn s() -> Self{
-        Tetromino::new()
+        Shape::new()
     }
     pub fn t() -> Self{
-        Tetromino::new()
+        Shape::new()
     }
     pub fn o() -> Self{
-        Tetromino::new()
+        Shape::new()
     }
     pub fn z() -> Self{
-        Tetromino::new()
+        Shape::new()
     }
 }

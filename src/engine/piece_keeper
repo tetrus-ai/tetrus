@@ -1,0 +1,8 @@
+//keeps the pieces
+/*
+
+execute the move:
+    * perhapsCoolNewPiece = piece.getMeButSomeplacElse
+    * playArea.whatDoYouThinkIsThiPieceLegal?(perhapsCoolNewPiece)
+    * 
+*/

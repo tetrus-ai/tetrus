@@ -1,4 +1,4 @@
-use super::tetromino::Tetromino;
+use super::shape::Shape;
 use ::rand::{StdRng, Rng};
 
 #[derive(Copy, Clone)]
@@ -13,17 +13,17 @@ impl TetrominoGenerator{
         }
     }
 
-    pub fn next(&self) -> (TetrominoGenerator, Option<Tetromino>) {
+    pub fn next(&self) -> (TetrominoGenerator, Option<Shape>) {
         let mut rng = self.rng;
         let random = rng.gen_range(0, 7);
         let tetromino = match random {
-            0 => Some(Tetromino::i()),
-            1 => Some(Tetromino::j()),
-            2 => Some(Tetromino::l()),
-            3 => Some(Tetromino::z()),
-            4 => Some(Tetromino::s()),
-            5 => Some(Tetromino::o()),
-            6 => Some(Tetromino::t()),
+            0 => Some(Shape::i()),
+            1 => Some(Shape::j()),
+            2 => Some(Shape::l()),
+            3 => Some(Shape::z()),
+            4 => Some(Shape::s()),
+            5 => Some(Shape::o()),
+            6 => Some(Shape::t()),
             _ => None
         };
         (TetrominoGenerator::new(self.rng), tetromino)
@@ -41,7 +41,7 @@ impl Default for TetrominoGenerator {
 #[cfg(test)]
 mod should {
     use super::TetrominoGenerator;
-    use super::Tetromino;
+    use super::Shape;
     use ::rand::{StdRng, SeedableRng};
 
     #[test]
@@ -50,7 +50,7 @@ mod should {
         let generator = TetrominoGenerator::new(rng);
         let (_generator, tetromino) = generator.next();
 
-        assert_eq!(tetromino.unwrap(), Tetromino::o())
+        assert_eq!(tetromino.unwrap(), Shape::o())
     }
 
     #[test]

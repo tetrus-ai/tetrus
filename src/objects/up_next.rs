@@ -1,10 +1,10 @@
-use super::tetromino::Tetromino;
+use super::shape::Shape;
 use super::tetromino_generator::TetrominoGenerator;
 
 #[derive(Clone, Copy)]
 pub struct UpNext{
-    pub first: Tetromino,
-    pub second: Tetromino,
+    pub first: Shape,
+    pub second: Shape,
     generator: TetrominoGenerator
 }
 
@@ -19,7 +19,7 @@ impl UpNext{
         }
     }
 
-    pub fn next(&self) -> (UpNext, Tetromino) {
+    pub fn next(&self) -> (UpNext, Shape) {
         let current = self.first;
         let (generator, next) = self.generator.next();
         let up_next = UpNext {
@@ -36,7 +36,7 @@ mod should {
     use super::UpNext;
     use ::objects::tetromino_generator::TetrominoGenerator;
     use ::rand::{StdRng, SeedableRng};
-    use ::objects::tetromino::Tetromino;
+    use ::objects::shape::Shape;
 
     #[test]
     fn set_new_current_to_old_first() {
@@ -67,6 +67,6 @@ mod should {
 
         let (up_next, _current) = up_next.next();
 
-        assert_eq!(up_next.second, Tetromino::t());
+        assert_eq!(up_next.second, Shape::t());
     }
 }

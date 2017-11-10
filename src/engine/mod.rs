@@ -1,3 +1,3 @@
 pub mod command;
-pub mod current;
+pub mod piece;
 pub mod position;
