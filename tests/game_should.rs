@@ -11,41 +11,49 @@ mod game_should {
 
     #[test]
     fn have_score_zero_when_new() {
-        let generator = TetrominoGenerator::default();
-        let game = Game::new(generator);
+        let game = default();
         assert_eq!(game.score, 0);
     }
 
     #[test]
     fn have_empty_well_when_new() {
-        let generator = TetrominoGenerator::default();
-        let game = Game::new(generator);
+        let game = default();
         assert_eq!(game.well, Well::empty());
     }
 
     #[test]
     fn populate_up_next() {
-        let rng = StdRng::from_seed(&[2]);
-        let generator = TetrominoGenerator::new(rng);
-        let game = Game::new(generator);
+        let game = with_seed(&[2]);
         assert_eq!(game.up_next.first, Tetromino::z());
         assert_eq!(game.up_next.second, Tetromino::o());
     }
 
     #[test]
     fn place_current_tetromino_at_5_2() {
-        let generator = TetrominoGenerator::default();
-        let game = Game::new(generator);
+        let game = default();
         assert_eq!(game.current.tetromino, Tetromino::i());
         assert_eq!(game.current.position, Position::new(5, 2));
     }
 
     #[test]
     fn drop_current_piece_when_tick_finishes() {
-        let generator = TetrominoGenerator::default();
-        let game = Game::new(generator);
+        let game = default();
         let game = game.tick();
-
         assert_eq!(game.current.position, Position::new(5, 3));
+    }
+
+    #[test]
+    fn stick_current_piece_to_well_when_it_hits_the_bottom() {
+    }
+
+    fn default() -> Game{
+        let generator = TetrominoGenerator::default();
+        Game::new(generator)
+    }
+
+    fn with_seed(seed: &[usize]) -> Game{
+        let rng = StdRng::from_seed(seed);
+        let generator = TetrominoGenerator::new(rng);
+        Game::new(generator)
     }
 }
