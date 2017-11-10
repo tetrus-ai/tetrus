@@ -1,6 +1,3 @@
-use ::square::Square;
-use ::position::Position;
-
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Tetromino {
 }

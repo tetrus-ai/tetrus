@@ -14,7 +14,7 @@ impl Current{
         }
     }
 
-    pub fn dropByOne(&self) -> Current{
+    pub fn drop_by_one(&self) -> Current{
         let position = self.position.add_to_y(1);
         Current{
             tetromino: self.tetromino,

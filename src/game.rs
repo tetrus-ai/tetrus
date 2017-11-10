@@ -1,8 +1,6 @@
 use super::well::Well;
 use super::up_next::UpNext;
-use super::tetromino::Tetromino;
 use super::tetromino_generator::TetrominoGenerator;
-use super::position::Position;
 use super::current::Current;
 
 pub struct Game{
@@ -26,7 +24,7 @@ impl Game{
     }
 
     pub fn tick(&self) -> Game {
-        let current = self.current.dropByOne();
+        let current = self.current.drop_by_one();
         Game {
             score: self.score,
             well: self.well,

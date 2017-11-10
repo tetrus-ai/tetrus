@@ -1,6 +1,7 @@
 use super::tetromino::Tetromino;
 use super::rand::{StdRng, Rng};
 
+#[derive(Copy, Clone)]
 pub struct TetrominoGenerator {
     rng: StdRng
 }
@@ -33,16 +34,6 @@ impl Default for TetrominoGenerator {
     fn default() -> Self {
         TetrominoGenerator{
             rng: StdRng::new().unwrap()
-        }
-    }
-}
-
-impl Copy for TetrominoGenerator {}
-
-impl Clone for TetrominoGenerator {
-    fn clone(&self) -> Self {
-        TetrominoGenerator{
-            rng: self.rng
         }
     }
 }

@@ -1,6 +1,7 @@
 use super::tetromino::Tetromino;
 use super::tetromino_generator::TetrominoGenerator;
 
+#[derive(Clone, Copy)]
 pub struct UpNext{
     pub first: Tetromino,
     pub second: Tetromino,
@@ -27,18 +28,6 @@ impl UpNext{
             generator: generator,
         };
         (up_next, current)
-    }
-}
-
-impl Copy for UpNext{}
-
-impl Clone for UpNext{
-    fn clone(&self) -> Self {
-        UpNext{
-            first: self.first,
-            second: self.second,
-            generator: self.generator
-        }
     }
 }
 
