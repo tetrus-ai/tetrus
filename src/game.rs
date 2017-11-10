@@ -1,4 +1,4 @@
-use super::command::{Command, CommandType};
+use super::command::Command;
 use super::current::Current;
 use super::tetromino_generator::TetrominoGenerator;
 use super::up_next::UpNext;
@@ -35,9 +35,9 @@ impl Game{
     }
 
     pub fn issue_command(&self, command: Command) -> Game {
-        let current = match command.command_type {
-            CommandType::MoveLeft => self.current.move_left(),
-            CommandType::MoveRight => Some(self.current.move_right())
+        let current = match command {
+            Command::MoveLeft => self.current.move_left(),
+            Command::MoveRight => Some(self.current.move_right())
         };
 
         match current {
@@ -98,7 +98,7 @@ mod should {
     fn move_current_to_the_left_when_issued_a_move_left_command(){
         let generator = TetrominoGenerator::default();
         let game = Game::new(generator);
-        let left_command = Command::move_left();
+        let left_command = Command::MoveLeft;
         
         let game = game.issue_command(left_command);
 
@@ -109,7 +109,7 @@ mod should {
     fn move_current_to_the_right_when_issued_a_move_right_command(){
         let generator = TetrominoGenerator::default();
         let game = Game::new(generator);
-        let right_command = Command::move_right();
+        let right_command = Command::MoveRight;
         
         let game = game.issue_command(right_command);
 
@@ -124,7 +124,7 @@ mod should {
         
         let initial_position = game.current.position;
 
-        let left_command = Command::move_left();
+        let left_command = Command::MoveLeft;
 
         let game = game.issue_command(left_command);
 

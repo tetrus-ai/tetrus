@@ -48,16 +48,16 @@ mod should {
     fn return_a_tetromino(){
         let rng = StdRng::from_seed(&[1]);
         let generator = TetrominoGenerator::new(rng);
-        let (generator, tetromino) = generator.next();
+        let (_generator, tetromino) = generator.next();
 
         assert_eq!(tetromino.unwrap(), Tetromino::o())
     }
 
     #[test]
-    fn never_return_None(){
+    fn never_return_none(){
         let generator = TetrominoGenerator::default();
-        for x in 0..1000 {
-            let (generator, tetronimo) = generator.next();
+        for _ in 0..1000 {
+            let (_generator, tetronimo) = generator.next();
             assert_ne!(tetronimo, None);
         }
     }

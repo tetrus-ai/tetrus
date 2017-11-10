@@ -46,7 +46,7 @@ mod game_should {
     #[test]
     fn move_current_piece_left_when_told_to_move_left() {
         let game = default();
-        let left_command = Command::move_left();
+        let left_command = Command::MoveLeft;
         let game = game.issue_command(left_command);
         assert_eq!(game.current.position, Position::new(4, 2))
     }
@@ -54,7 +54,7 @@ mod game_should {
     #[test]
     fn move_current_piece_right_when_told_to_move_right() {
         let game = default();
-        let right_command = Command::move_right();
+        let right_command = Command::MoveRight;
         let game = game.issue_command(right_command);
         assert_eq!(game.current.position, Position::new(6, 2))
     }

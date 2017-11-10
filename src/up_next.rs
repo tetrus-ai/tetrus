@@ -19,7 +19,7 @@ impl UpNext{
         }
     }
 
-    pub fn next(&mut self) -> (UpNext, Tetromino) {
+    pub fn next(&self) -> (UpNext, Tetromino) {
         let current = self.first;
         let (generator, next) = self.generator.next();
         let up_next = UpNext {
@@ -40,33 +40,33 @@ mod should {
 
     #[test]
     fn set_new_current_to_old_first() {
-        let mut generator = TetrominoGenerator::default();
-        let mut in_play = UpNext::new(generator);
+        let generator = TetrominoGenerator::default();
+        let up_next = UpNext::new(generator);
 
-        let expected_current = in_play.first;
-        let (in_play, current) = in_play.next();
+        let expected_current = up_next.first;
+        let (_up_next, current) = up_next.next();
 
         assert_eq!(current, expected_current);
     }
 
     #[test]
     fn set_new_first_to_old_second() {
-        let mut generator = TetrominoGenerator::default();
-        let mut in_play = UpNext::new(generator);
+        let generator = TetrominoGenerator::default();
+        let up_next = UpNext::new(generator);
 
-        let expected_first = in_play.second;
-        let (in_play, current) = in_play.next();
+        let expected_first = up_next.second;
+        let (up_next, _current) = up_next.next();
 
-        assert_eq!(in_play.first, expected_first);
+        assert_eq!(up_next.first, expected_first);
     }
 
     #[test]
     fn set_new_second_to_expected_from_rng() {
-        let mut generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
-        let mut in_play = UpNext::new(generator);
+        let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
+        let up_next = UpNext::new(generator);
 
-        let (in_play, current) = in_play.next();
+        let (up_next, _current) = up_next.next();
 
-        assert_eq!(in_play.second, Tetromino::t());
+        assert_eq!(up_next.second, Tetromino::t());
     }
 }
