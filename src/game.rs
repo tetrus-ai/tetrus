@@ -1,8 +1,8 @@
-use super::command::Command;
-use super::current::Current;
-use super::tetromino_generator::TetrominoGenerator;
-use super::up_next::UpNext;
-use super::well::Well;
+use ::engine::command::Command;
+use ::engine::current::Current;
+use ::objects::tetromino_generator::TetrominoGenerator;
+use ::objects::up_next::UpNext;
+use ::objects::well::Well;
 
 pub struct Game{
     pub score: u32,
@@ -60,7 +60,7 @@ impl Game{
 #[cfg(test)]
 mod new_game_should {
     use super::Game;
-    use ::tetromino_generator::TetrominoGenerator;
+    use ::objects::tetromino_generator::TetrominoGenerator;
 
     #[test]
     fn have_a_score_of_zero() {
@@ -73,9 +73,9 @@ mod new_game_should {
 #[cfg(test)]
 mod started_game_should {
     use super::Game;
-    use ::position::Position;
-    use ::tetromino::Tetromino;
-    use ::tetromino_generator::TetrominoGenerator;
+    use ::engine::position::Position;
+    use ::objects::tetromino::Tetromino;
+    use ::objects::tetromino_generator::TetrominoGenerator;
     use ::rand::{StdRng, SeedableRng};
 
     #[test]
@@ -90,9 +90,9 @@ mod started_game_should {
 #[cfg(test)]
 mod should {
     use super::Game;
-    use ::command::Command;
-    use ::position::Position;
-    use ::tetromino_generator::TetrominoGenerator;
+    use ::engine::command::Command;
+    use ::engine::position::Position;
+    use ::objects::tetromino_generator::TetrominoGenerator;
 
     #[test]
     fn move_current_to_the_left_when_issued_a_move_left_command(){

@@ -1,5 +1,5 @@
 use super::tetromino::Tetromino;
-use super::rand::{StdRng, Rng};
+use ::rand::{StdRng, Rng};
 
 #[derive(Copy, Clone)]
 pub struct TetrominoGenerator {

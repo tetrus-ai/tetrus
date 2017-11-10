@@ -1,4 +1,4 @@
-use super::tetromino::Tetromino;
+use ::objects::tetromino::Tetromino;
 use super::position::Position;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -45,8 +45,8 @@ impl Current{
 #[cfg(test)]
 mod should{
     use super::Current;
-    use ::position::Position;
-    use ::tetromino::Tetromino;
+    use ::engine::position::Position;
+    use ::objects::tetromino::Tetromino;
 
     #[test]
     fn decrease_x_by_one_when_moved_left(){

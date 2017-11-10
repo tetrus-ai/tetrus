@@ -34,9 +34,9 @@ impl UpNext{
 #[cfg(test)]
 mod should {
     use super::UpNext;
-    use ::tetromino_generator::TetrominoGenerator;
+    use ::objects::tetromino_generator::TetrominoGenerator;
     use ::rand::{StdRng, SeedableRng};
-    use ::tetromino::Tetromino;
+    use ::objects::tetromino::Tetromino;
 
     #[test]
     fn set_new_current_to_old_first() {

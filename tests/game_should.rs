@@ -2,12 +2,12 @@ extern crate rand;
 extern crate tetrus;
 
 mod game_should {
-    use tetrus::command::Command;
     use tetrus::game::Game;
-    use tetrus::position::Position;
-    use tetrus::tetromino::Tetromino;
-    use tetrus::tetromino_generator::TetrominoGenerator;
-    use tetrus::well::Well;
+    use tetrus::engine::command::Command;
+    use tetrus::engine::position::Position;
+    use tetrus::objects::tetromino::Tetromino;
+    use tetrus::objects::tetromino_generator::TetrominoGenerator;
+    use tetrus::objects::well::Well;
     use rand::{SeedableRng, StdRng};
 
     #[test]

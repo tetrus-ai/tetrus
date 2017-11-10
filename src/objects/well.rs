@@ -1,8 +1,7 @@
-use super::square::Square;
+use ::objects::square::Square;
 #[derive(Clone, Copy, Debug, Default)]
 pub struct Well{
-    // should be private
-    pub items: [[Square; 10]; 20]
+    items: [[Square; 10]; 20]
 }
 
 impl Well{
@@ -23,7 +22,7 @@ impl PartialEq for Well{
 #[cfg(test)]
 mod empty_well_should {
     use super::Well;
-    use ::square::Square;
+    use ::objects::square::Square;
 
     #[test]
     fn be_empty() {
