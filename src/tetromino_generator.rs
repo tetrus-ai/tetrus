@@ -37,7 +37,7 @@ impl Default for TetrominoGenerator {
     }
 }
 
-impl Copy for TetrominoGenerator{}
+impl Copy for TetrominoGenerator {}
 
 impl Clone for TetrominoGenerator {
     fn clone(&self) -> Self {
@@ -56,9 +56,18 @@ mod should {
     #[test]
     fn return_a_tetromino(){
         let rng = StdRng::from_seed(&[1]);
-        let mut generator = TetrominoGenerator::new(rng);
+        let generator = TetrominoGenerator::new(rng);
         let (generator, tetromino) = generator.next();
 
         assert_eq!(tetromino.unwrap(), Tetromino::o())
+    }
+
+    #[test]
+    fn never_return_None(){
+        let generator = TetrominoGenerator::default();
+        for x in 0..1000 {
+            let (generator, tetronimo) = generator.next();
+            assert_ne!(tetronimo, None);
+        }
     }
 }
