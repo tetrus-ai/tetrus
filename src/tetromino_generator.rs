@@ -12,9 +12,10 @@ impl TetrominoGenerator{
         }
     }
 
-    pub fn next(&mut self) -> Option<Tetromino> {
-        let random = self.rng.gen_range(0, 7);
-        match random {
+    pub fn next(&self) -> (TetrominoGenerator, Option<Tetromino>) {
+        let mut rng = self.rng;
+        let random = rng.gen_range(0, 7);
+        let tetromino = match random {
             0 => Some(Tetromino::i()),
             1 => Some(Tetromino::j()),
             2 => Some(Tetromino::l()),
@@ -23,7 +24,8 @@ impl TetrominoGenerator{
             5 => Some(Tetromino::o()),
             6 => Some(Tetromino::t()),
             _ => None
-        }
+        };
+        (TetrominoGenerator::new(self.rng), tetromino)
     }
 }
 
@@ -31,6 +33,16 @@ impl Default for TetrominoGenerator {
     fn default() -> Self {
         TetrominoGenerator{
             rng: StdRng::new().unwrap()
+        }
+    }
+}
+
+impl Copy for TetrominoGenerator{}
+
+impl Clone for TetrominoGenerator {
+    fn clone(&self) -> Self {
+        TetrominoGenerator{
+            rng: self.rng
         }
     }
 }
@@ -45,10 +57,8 @@ mod should {
     fn return_a_tetromino(){
         let rng = StdRng::from_seed(&[1]);
         let mut generator = TetrominoGenerator::new(rng);
-        let tetromino = generator.next();
+        let (generator, tetromino) = generator.next();
 
         assert_eq!(tetromino.unwrap(), Tetromino::o())
     }
-
-//    fn never_generate_an_invalid_tetromino
 }

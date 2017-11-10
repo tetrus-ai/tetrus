@@ -1,31 +1,44 @@
 use super::tetromino::Tetromino;
 use super::tetromino_generator::TetrominoGenerator;
 
-pub struct UpNext<'a>{
+pub struct UpNext{
     pub first: Tetromino,
     pub second: Tetromino,
-    generator: &'a mut TetrominoGenerator
+    generator: TetrominoGenerator
 }
 
-impl<'a> UpNext<'a>{
-    pub fn new(generator: &mut TetrominoGenerator) -> UpNext {
-        let first = generator.next().unwrap();
-        let second = generator.next().unwrap();
+impl UpNext{
+    pub fn new(generator: TetrominoGenerator) -> UpNext {
+        let (generator, first) = generator.next();
+        let (generator, second) = generator.next();
         UpNext {
             generator,
-            first,
-            second,
+            first: first.unwrap(),
+            second: second.unwrap(),
         }
     }
 
     pub fn next(&mut self) -> (UpNext, Tetromino) {
         let current = self.first;
+        let (generator, next) = self.generator.next();
         let up_next = UpNext {
             first: self.second,
-            second: self.generator.next().unwrap(),
-            generator: self.generator,
+            second: next.unwrap(),
+            generator: generator,
         };
         (up_next, current)
+    }
+}
+
+impl Copy for UpNext{}
+
+impl Clone for UpNext{
+    fn clone(&self) -> Self {
+        UpNext{
+            first: self.first,
+            second: self.second,
+            generator: self.generator
+        }
     }
 }
 
@@ -39,7 +52,7 @@ mod should {
     #[test]
     fn set_new_current_to_old_first() {
         let mut generator = TetrominoGenerator::default();
-        let mut in_play = UpNext::new(&mut generator);
+        let mut in_play = UpNext::new(generator);
 
         let expected_current = in_play.first;
         let (in_play, current) = in_play.next();
@@ -50,7 +63,7 @@ mod should {
     #[test]
     fn set_new_first_to_old_second() {
         let mut generator = TetrominoGenerator::default();
-        let mut in_play = UpNext::new(&mut generator);
+        let mut in_play = UpNext::new(generator);
 
         let expected_first = in_play.second;
         let (in_play, current) = in_play.next();
@@ -61,7 +74,7 @@ mod should {
     #[test]
     fn set_new_second_to_expected_from_rng() {
         let mut generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
-        let mut in_play = UpNext::new(&mut generator);
+        let mut in_play = UpNext::new(generator);
 
         let (in_play, current) = in_play.next();
 

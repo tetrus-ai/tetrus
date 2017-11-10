@@ -5,17 +5,17 @@ use super::tetromino_generator::TetrominoGenerator;
 use super::position::Position;
 use super::current::Current;
 
-pub struct Game<'a>{
+pub struct Game{
     pub score: u32,
     pub well: Well,
-    pub up_next: UpNext<'a>,
+    pub up_next: UpNext,
     pub current: Current
 }
 
-impl<'a> Game<'a>{
-    pub fn new(generator: &mut TetrominoGenerator) -> Game {
-        let current_tetromino = generator.next().unwrap();
-        let current = Current::new(current_tetromino);
+impl Game{
+    pub fn new(generator: TetrominoGenerator) -> Game {
+        let (generator, current_tetromino) = generator.next();
+        let current = Current::new(current_tetromino.unwrap());
         let up_next = UpNext::new(generator);
         Game {
             score: 0,
@@ -43,8 +43,8 @@ mod new_game_should {
 
     #[test]
     fn have_a_score_of_zero() {
-        let mut generator = TetrominoGenerator::default();
-        let game = Game::new(&mut generator);
+        let generator = TetrominoGenerator::default();
+        let game = Game::new(generator);
         assert_eq!(game.score, 0);
     }
 }
@@ -59,8 +59,8 @@ mod started_game_should {
 
     #[test]
     fn have_a_tetromino_in_play() {
-        let mut generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
-        let mut game = Game::new(&mut generator);
+        let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
+        let game = Game::new(generator);
         assert_eq!(game.current.tetromino, Tetromino::l());
         assert_eq!(game.current.position, Position::new(5, 2));
     }
