@@ -8,5 +8,6 @@ pub mod well;
 pub mod game;
 pub mod position;
 mod current;
+pub mod command;
 
 extern crate rand;

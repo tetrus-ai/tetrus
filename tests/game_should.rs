@@ -2,6 +2,7 @@ extern crate rand;
 extern crate tetrus;
 
 mod game_should {
+    use tetrus::command::Command;
     use tetrus::game::Game;
     use tetrus::position::Position;
     use tetrus::tetromino::Tetromino;
@@ -43,7 +44,19 @@ mod game_should {
     }
 
     #[test]
-    fn stick_current_piece_to_well_when_it_hits_the_bottom() {
+    fn move_current_piece_left_when_told_to_move_left() {
+        let game = default();
+        let left_command = Command::move_left();
+        let game = game.issue_command(left_command);
+        assert_eq!(game.current.position, Position::new(4, 2))
+    }
+
+    #[test]
+    fn move_current_piece_right_when_told_to_move_right() {
+        let game = default();
+        let right_command = Command::move_right();
+        let game = game.issue_command(right_command);
+        assert_eq!(game.current.position, Position::new(6, 2))
     }
 
     fn default() -> Game{
