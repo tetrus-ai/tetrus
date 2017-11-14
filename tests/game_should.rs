@@ -101,7 +101,7 @@ mod game_should {
     fn allow_a_piece_to_drop_to_the_bottom() {
         let game = move_to_bottom(default());
 
-        //assert_eq!(game.current.position, Position::new(5, 22));
+        assert_eq!(game.current.position, Position::new(ORIGIN_X, BOUNDARY_BOTTOM));
     }
 
     fn default() -> Game{
