@@ -60,15 +60,19 @@ mod game_should {
     }
 
     #[test]
-    fn not_allow_a_piece_to_leave_the_play_area_to_the_left() {
-        let mut game = default();
-        let initial_position = Position::new(0, 2);
-        game.current.position = initial_position;
-        let left_move = Command::MoveLeft;
+    fn allow_a_piece_to_move_to_left_boundary() {
+        let game = move_to_left_boundary(default());
 
+        assert_eq!(game.current.position, Position::new(0, 2));
+    }
+
+    #[test]
+    fn not_allow_a_piece_to_pass_left_boundary() {
+        let game = move_to_left_boundary(default());
+        let left_move = Command::MoveLeft;
         let game = game.issue_command(left_move);
 
-        assert_eq!(game.current.position, initial_position);
+        assert_eq!(game.current.position, Position::new(0, 2));
     }
 
     fn default() -> Game{
@@ -80,5 +84,12 @@ mod game_should {
         let rng = StdRng::from_seed(seed);
         let generator = TetrominoGenerator::new(rng);
         Game::new(generator)
+    }
+
+    fn move_to_left_boundary(game: Game) -> Game{
+        match game.current.position.x{
+            0 => game,
+            _ => move_to_left_boundary(game.issue_command(Command::MoveLeft))
+        }
     }
 }
