@@ -28,7 +28,7 @@ impl Game{
     }
 
     pub fn tick(&self) -> Game {
-        let current = self.current.drop_by_one();
+        let current = self.piece_keeper.execute_command(Command::Drop, self.current);
         Game {
             score: self.score,
             well: self.well,
@@ -76,7 +76,7 @@ mod started_game_should {
         let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
         let game = Game::new(generator);
         assert_eq!(game.current.shape, Shape::l());
-        assert_eq!(game.current.position, Position::new(5, 2));
+        assert_eq!(game.current.position, Position::new(0, 0));
     }
 }
 
@@ -95,7 +95,7 @@ mod should {
         
         let game = game.issue_command(left_command);
 
-        assert_eq!(game.current.position, Position::new(4, 2))
+        assert_eq!(game.current.position, Position::new(-1, 0))
     }
 
     #[test]
@@ -106,6 +106,6 @@ mod should {
         
         let game = game.issue_command(right_command);
 
-        assert_eq!(game.current.position, Position::new(6, 2))
+        assert_eq!(game.current.position, Position::new(1, 0))
     }
 }

@@ -1,5 +1,6 @@
 #[derive(Clone, Copy)]
 pub enum Command {
     MoveLeft,
-    MoveRight
+    MoveRight,
+    Drop
 }

@@ -11,7 +11,7 @@ impl Piece {
     pub fn new(shape: Shape) -> Self{
         Piece {
             shape,
-            position: Position::new(5, 2)
+            position: Position::new(0, 0)
         }
     }
 

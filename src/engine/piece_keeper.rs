@@ -12,7 +12,8 @@ impl PieceKeeper{
     pub fn execute_command(&self, command: Command, piece: Piece) -> Piece{
         let attempted_move = match command {
             Command::MoveLeft => piece.move_left(),
-            Command::MoveRight => piece.move_right()
+            Command::MoveRight => piece.move_right(),
+            Command::Drop => piece.drop_by_one()
         };
 
         let mut is_allowed = true;
