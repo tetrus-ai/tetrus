@@ -3,14 +3,14 @@ use ::game::{ORIGIN, MOVE_SPEED};
 use super::position::Position;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Piece {
+pub struct PlacedPiece {
     pub shape: Shape,
     pub position: Position
 }
 
-impl Piece {
-    pub fn new(shape: Shape) -> Self{
-        Piece {
+impl PlacedPiece {
+    pub fn at_origin(shape: Shape) -> Self{
+        PlacedPiece {
             shape,
             position: ORIGIN
         }
@@ -18,14 +18,14 @@ impl Piece {
 
     pub fn drop_by_one(&self) -> Self{
         let position = self.position.add_to_y(MOVE_SPEED);
-        Piece {
+        PlacedPiece {
             shape: self.shape,
             position
         }
     }
 
     pub fn move_left(&self) -> Self{
-        Piece{
+        PlacedPiece {
             shape: self.shape,
             position: self.position.subtract_from_x(MOVE_SPEED)
         }
@@ -33,7 +33,7 @@ impl Piece {
 
     pub fn move_right(&self) -> Self{
         let position = self.position.add_to_x(MOVE_SPEED);
-        Piece {
+        PlacedPiece {
             shape: self.shape,
             position
         }
@@ -42,13 +42,13 @@ impl Piece {
 
 #[cfg(test)]
 mod should{
-    use super::Piece;
+    use super::PlacedPiece;
     use ::objects::shape::Shape;
     use ::game::MOVE_SPEED;
 
     #[test]
     fn decrease_x_by_one_when_moved_left(){
-        let current = Piece::new(Shape::i());
+        let current = PlacedPiece::at_origin(Shape::i());
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x - MOVE_SPEED;
@@ -60,7 +60,7 @@ mod should{
 
     #[test]
     fn increase_x_by_one_when_moved_right(){
-        let current = Piece::new(Shape::i());
+        let current = PlacedPiece::at_origin(Shape::i());
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x + MOVE_SPEED;

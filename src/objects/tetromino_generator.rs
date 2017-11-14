@@ -57,8 +57,8 @@ mod should {
     fn never_return_none(){
         let generator = TetrominoGenerator::default();
         for _ in 0..1000 {
-            let (_generator, tetronimo) = generator.next();
-            assert_ne!(tetronimo, None);
+            let (_generator, tetromino) = generator.next();
+            assert_ne!(tetromino, None);
         }
     }
 }

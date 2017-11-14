@@ -25,7 +25,7 @@ impl UpNext{
         let up_next = UpNext {
             first: self.second,
             second: next.unwrap(),
-            generator: generator,
+            generator,
         };
         (up_next, current)
     }

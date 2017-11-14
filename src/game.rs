@@ -1,5 +1,5 @@
 use ::engine::command::Command;
-use ::engine::piece::Piece;
+use ::engine::piece::PlacedPiece;
 use ::objects::tetromino_generator::TetrominoGenerator;
 use ::objects::up_next::UpNext;
 use ::engine::piece_keeper::PieceKeeper;
@@ -19,39 +19,39 @@ pub const MOVE_SPEED: i8 = 1;
 pub struct Game{
     pub score: u32,
     pub up_next: UpNext,
-    pub current: Piece,
+    pub current_piece: PlacedPiece,
     piece_keeper: PieceKeeper
 }
 
 impl Game{
     pub fn new(generator: TetrominoGenerator) -> Game {
         let (generator, shape) = generator.next();
-        let current = Piece::new(shape.unwrap());
+        let initial_piece = PlacedPiece::at_origin(shape.unwrap());
         let up_next = UpNext::new(generator);
         Game {
             score: 0,
-            up_next: up_next,
-            current,
-            piece_keeper: PieceKeeper::default()
+            current_piece: initial_piece,
+            piece_keeper: PieceKeeper::default(),
+            up_next,
         }
     }
 
     pub fn tick(&self) -> Game {
-        let current = self.piece_keeper.execute_command(Command::Drop, self.current);
+        let moved_piece = self.piece_keeper.execute_command(Command::Drop, self.current_piece);
         Game {
             score: self.score,
             up_next: self.up_next,
-            current,
+            current_piece: moved_piece,
             piece_keeper: self.piece_keeper,
         }
     }
 
     pub fn issue_command(&self, command: Command) -> Game {
-        let piece =  self.piece_keeper.execute_command(command, self.current);
+        let moved_piece =  self.piece_keeper.execute_command(command, self.current_piece);
         Game {
             score: self.score,
             up_next: self.up_next,
-            current: piece,
+            current_piece: moved_piece,
             piece_keeper: self.piece_keeper,
         }
     }
@@ -82,8 +82,8 @@ mod started_game_should {
     fn have_a_tetromino_in_play() {
         let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
         let game = Game::new(generator);
-        assert_eq!(game.current.shape, Shape::l());
-        assert_eq!(game.current.position, Position::new(ORIGIN_X, ORIGIN_Y));
+        assert_eq!(game.current_piece.shape, Shape::l());
+        assert_eq!(game.current_piece.position, Position::new(ORIGIN_X, ORIGIN_Y));
     }
 }
 
@@ -102,7 +102,7 @@ mod should {
         
         let game = game.issue_command(left_command);
 
-        assert_eq!(game.current.position, Position::new(ORIGIN_X - MOVE_SPEED, ORIGIN_Y))
+        assert_eq!(game.current_piece.position, Position::new(ORIGIN_X - MOVE_SPEED, ORIGIN_Y))
     }
 
     #[test]
@@ -113,6 +113,6 @@ mod should {
         
         let game = game.issue_command(right_command);
 
-        assert_eq!(game.current.position, Position::new(ORIGIN_X + MOVE_SPEED, ORIGIN_Y))
+        assert_eq!(game.current_piece.position, Position::new(ORIGIN_X + MOVE_SPEED, ORIGIN_Y))
     }
 }

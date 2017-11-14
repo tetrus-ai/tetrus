@@ -25,15 +25,15 @@ mod game_should {
     #[test]
     fn place_current_tetromino_at_origin() {
         let game = default();
-        assert_eq!(game.current.shape, Shape::i());
-        assert_eq!(game.current.position, ORIGIN);
+        assert_eq!(game.current_piece.shape, Shape::i());
+        assert_eq!(game.current_piece.position, ORIGIN);
     }
 
     #[test]
     fn drop_current_piece_when_tick_finishes() {
         let game = default();
         let game = game.tick();
-        assert_eq!(game.current.position, Position::new(ORIGIN_X, ORIGIN_Y + MOVE_SPEED));
+        assert_eq!(game.current_piece.position, Position::new(ORIGIN_X, ORIGIN_Y + MOVE_SPEED));
     }
 
     #[test]
@@ -41,7 +41,7 @@ mod game_should {
         let game = default();
         let left_command = Command::MoveLeft;
         let game = game.issue_command(left_command);
-        assert_eq!(game.current.position, Position::new(ORIGIN_X - MOVE_SPEED, ORIGIN_Y))
+        assert_eq!(game.current_piece.position, Position::new(ORIGIN_X - MOVE_SPEED, ORIGIN_Y))
     }
 
     #[test]
@@ -49,14 +49,14 @@ mod game_should {
         let game = default();
         let right_command = Command::MoveRight;
         let game = game.issue_command(right_command);
-        assert_eq!(game.current.position, Position::new(ORIGIN_X + MOVE_SPEED, ORIGIN_Y))
+        assert_eq!(game.current_piece.position, Position::new(ORIGIN_X + MOVE_SPEED, ORIGIN_Y))
     }
 
     #[test]
     fn allow_a_piece_to_move_to_left_boundary() {
         let game = move_to_left_boundary(default());
 
-        assert_eq!(game.current.position, Position::new(BOUNDARY_LEFT, ORIGIN_Y));
+        assert_eq!(game.current_piece.position, Position::new(BOUNDARY_LEFT, ORIGIN_Y));
     }
 
     #[test]
@@ -64,14 +64,14 @@ mod game_should {
         let game = move_to_left_boundary(default());
         let game = game.issue_command(Command::MoveLeft);
 
-        assert_eq!(game.current.position, Position::new(BOUNDARY_LEFT, ORIGIN_Y));
+        assert_eq!(game.current_piece.position, Position::new(BOUNDARY_LEFT, ORIGIN_Y));
     }
 
     #[test]
     fn allow_a_piece_to_move_right_boundary() {
         let game = move_to_right_boundary(default());
 
-        assert_eq!(game.current.position, Position::new(BOUNDARY_RIGHT, ORIGIN_Y));
+        assert_eq!(game.current_piece.position, Position::new(BOUNDARY_RIGHT, ORIGIN_Y));
     }
 
     #[test]
@@ -79,14 +79,14 @@ mod game_should {
         let game = move_to_right_boundary(default());
         let game = game.issue_command(Command::MoveRight);
 
-        assert_eq!(game.current.position, Position::new(BOUNDARY_RIGHT, ORIGIN_Y));
+        assert_eq!(game.current_piece.position, Position::new(BOUNDARY_RIGHT, ORIGIN_Y));
     }
 
     #[test]
     fn allow_a_piece_to_drop_to_the_bottom() {
         let game = move_to_bottom(default());
 
-        assert_eq!(game.current.position, Position::new(ORIGIN_X, BOUNDARY_BOTTOM));
+        assert_eq!(game.current_piece.position, Position::new(ORIGIN_X, BOUNDARY_BOTTOM));
     }
 
     fn default() -> Game{
@@ -101,21 +101,21 @@ mod game_should {
     }
 
     fn move_to_left_boundary(game: Game) -> Game{
-        match game.current.position.x{
+        match game.current_piece.position.x{
             BOUNDARY_LEFT => game,
             _ => move_to_left_boundary(game.issue_command(Command::MoveLeft))
         }
     }
 
     fn move_to_right_boundary(game: Game ) -> Game{
-        match game.current.position.x{
+        match game.current_piece.position.x{
             BOUNDARY_RIGHT => game,
             _ => move_to_right_boundary(game.issue_command(Command::MoveRight))
         }
     }
 
     fn move_to_bottom(game: Game ) -> Game{
-        match game.current.position.y{
+        match game.current_piece.position.y{
             BOUNDARY_BOTTOM => game,
             _ => move_to_bottom(game.issue_command(Command::Drop))
         }
