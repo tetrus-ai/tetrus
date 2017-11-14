@@ -31,6 +31,12 @@ impl Position {
     }
 }
 
+impl Into<(i8,i8)> for Position {
+    fn into(self) -> (i8,i8) {
+        (self.x, self.y)
+    }
+}
+
 #[cfg(test)]
 mod should {
     use super::Position;

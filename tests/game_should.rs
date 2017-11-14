@@ -59,6 +59,18 @@ mod game_should {
         assert_eq!(game.current.position, Position::new(6, 2))
     }
 
+    #[test]
+    fn not_allow_a_piece_to_leave_the_play_area_to_the_left() {
+        let mut game = default();
+        let initial_position = Position::new(0, 2);
+        game.current.position = initial_position;
+        let left_move = Command::MoveLeft;
+
+        let game = game.issue_command(left_move);
+
+        assert_eq!(game.current.position, initial_position);
+    }
+
     fn default() -> Game{
         let generator = TetrominoGenerator::default();
         Game::new(generator)

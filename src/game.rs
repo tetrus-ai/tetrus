@@ -3,12 +3,14 @@ use ::engine::piece::Piece;
 use ::objects::tetromino_generator::TetrominoGenerator;
 use ::objects::up_next::UpNext;
 use ::objects::well::Well;
+use ::engine::piece_keeper::PieceKeeper;
 
 pub struct Game{
     pub score: u32,
     pub well: Well,
     pub up_next: UpNext,
-    pub current: Piece
+    pub current: Piece,
+    piece_keeper: PieceKeeper
 }
 
 impl Game{
@@ -20,7 +22,8 @@ impl Game{
             score: 0,
             well: Well::empty(),
             up_next: up_next,
-            current
+            current,
+            piece_keeper: PieceKeeper::default()
         }
     }
 
@@ -30,23 +33,19 @@ impl Game{
             score: self.score,
             well: self.well,
             up_next: self.up_next,
-            current
+            current,
+            piece_keeper: self.piece_keeper,
         }
     }
 
     pub fn issue_command(&self, command: Command) -> Game {
+        let piece =  self.piece_keeper.execute_command(command, self.current);
         Game {
             score: self.score,
             well: self.well,
             up_next: self.up_next,
-            current: self.execute_command(command) 
-        }
-    }
-    
-    fn execute_command(&self, command: Command) -> Piece{
-        match command {
-            Command::MoveLeft => self.current.move_left(),
-            Command::MoveRight => self.current.move_right()
+            current: piece,
+            piece_keeper: self.piece_keeper,
         }
     }
 }
