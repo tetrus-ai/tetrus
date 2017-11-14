@@ -3,10 +3,8 @@ extern crate tetrus;
 
 mod game_should {
     use tetrus::game::*;
-    use tetrus::engine::command::Command;
-    use tetrus::engine::position::Position;
-    use tetrus::objects::shape::Shape;
-    use tetrus::objects::tetromino_generator::TetrominoGenerator;
+    use tetrus::movements::Command;
+    use tetrus::pieces::{Position, Shape, TetrominoGenerator};
     use rand::{SeedableRng, StdRng};
 
     #[test]

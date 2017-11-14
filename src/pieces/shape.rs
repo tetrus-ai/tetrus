@@ -1,16 +1,14 @@
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Shape {
-}
+use super::Shape;
 
 pub const I: Shape = Shape{};
 
 impl Shape {
-    fn new() -> Self{
+    const fn new() -> Self{
         Shape {
         }
     }
 
-    pub fn i() -> Self{
+    pub const fn i() -> Self{
         Shape::new()
     }
     pub fn j() -> Self{

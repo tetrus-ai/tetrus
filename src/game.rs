@@ -1,10 +1,10 @@
-use ::engine::command::Command;
-use ::engine::piece::PlacedPiece;
-use ::objects::tetromino_generator::TetrominoGenerator;
-use ::objects::up_next::UpNext;
-use ::engine::piece_keeper::PieceKeeper;
-use ::engine::position::Position;
-
+use super::pieces::PlacedPiece;
+use super::pieces::TetrominoGenerator;
+use super::movements::PieceKeeper;
+use super::movements::Command::Drop;
+use super::movements::Command;
+use super::pieces::UpNext;
+use super::pieces::Position;
 
 pub const ORIGIN: Position = Position{ x:ORIGIN_X, y:ORIGIN_Y };
 pub const ORIGIN_X: i8 = 0;
@@ -37,7 +37,7 @@ impl Game{
     }
 
     pub fn tick(&self) -> Game {
-        let moved_piece = self.piece_keeper.execute_command(Command::Drop, self.current_piece);
+        let moved_piece = self.piece_keeper.execute_command(Drop, self.current_piece);
         Game {
             score: self.score,
             up_next: self.up_next,
@@ -60,7 +60,7 @@ impl Game{
 #[cfg(test)]
 mod new_game_should {
     use super::Game;
-    use ::objects::tetromino_generator::TetrominoGenerator;
+    use ::pieces::TetrominoGenerator;
 
     #[test]
     fn have_a_score_of_zero() {
@@ -73,9 +73,7 @@ mod new_game_should {
 #[cfg(test)]
 mod started_game_should {
     use super::*;
-    use ::engine::position::Position;
-    use ::objects::shape::Shape;
-    use ::objects::tetromino_generator::TetrominoGenerator;
+    use ::pieces::{Position, Shape, TetrominoGenerator};
     use ::rand::{StdRng, SeedableRng};
 
     #[test]
@@ -90,9 +88,6 @@ mod started_game_should {
 #[cfg(test)]
 mod should {
     use super::*;
-    use ::engine::command::Command;
-    use ::engine::position::Position;
-    use ::objects::tetromino_generator::TetrominoGenerator;
 
     #[test]
     fn move_current_to_the_left_when_issued_a_move_left_command(){

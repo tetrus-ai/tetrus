@@ -1,5 +1,5 @@
-use engine::piece::PlacedPiece;
 use game::{BOUNDARY_LEFT, BOUNDARY_RIGHT};
+use super::pieces::PlacedPiece;
 
 #[derive(Debug, PartialEq)]
 pub enum RuleEvaluationResult {
@@ -27,15 +27,12 @@ pub fn outside_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
 
 #[cfg(test)]
 mod should{
-    use ::engine::piece::PlacedPiece;
-    use ::engine::position::Position;
-    use ::objects::shape::Shape;
-    use ::objects::shape;
     use ::game::*;
     use super::*;
+    use ::pieces::Shape;
 
     const SOME_PIECE: PlacedPiece =
-        PlacedPiece::at_origin_with_shape(shape::I);
+        PlacedPiece::at_origin_with_shape(Shape::i());
 
     #[test]
     fn allow_piece_to_move_to_boundary(){

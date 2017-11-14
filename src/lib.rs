@@ -1,7 +1,9 @@
 #![feature(const_fn)]
 
-pub mod engine;
-pub mod objects;
+pub mod movements;
+pub mod pieces;
+pub mod rules;
+
 pub mod game;
 
 extern crate rand;

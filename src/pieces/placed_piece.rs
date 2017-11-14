@@ -1,12 +1,6 @@
-use ::objects::shape::Shape;
+use super::PlacedPiece;
+use super::Shape;
 use ::game::{ORIGIN, MOVE_SPEED};
-use super::position::Position;
-
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct PlacedPiece {
-    pub shape: Shape,
-    pub position: Position
-}
 
 impl PlacedPiece {
     pub const fn at_origin_with_shape(shape: Shape) -> Self{
@@ -43,8 +37,9 @@ impl PlacedPiece {
 #[cfg(test)]
 mod should{
     use super::PlacedPiece;
-    use ::objects::shape::Shape;
+    use super::super::placed_piece;
     use ::game::MOVE_SPEED;
+    use ::pieces::Shape;
 
     #[test]
     fn decrease_x_by_one_when_moved_left(){

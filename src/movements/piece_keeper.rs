@@ -1,9 +1,7 @@
-use super::command::Command;
-use super::piece::PlacedPiece;
-use super::rules::out_of_bounds::*;
-
-#[derive(Clone, Copy, Default)]
-pub struct PieceKeeper{}
+use super::Command;
+use super::PieceKeeper;
+use super::super::rules::*;
+use super::super::pieces::PlacedPiece;
 
 impl PieceKeeper{
     pub fn execute_command(&self, command: Command, original_piece: PlacedPiece) -> PlacedPiece {
@@ -41,15 +39,14 @@ pub fn respects_rule(rule: &Fn(&PlacedPiece) -> RuleEvaluationResult, piece: &Pl
 
 #[cfg(test)]
 mod should{
+    use ::game::*;
+    use ::movements::Command::*;
+    use ::pieces::Shape;
     use super::*;
-    use ::engine::piece::PlacedPiece;
-    use ::objects::shape::I;
-    use ::engine::command::Command::*;
-    use ::game::ORIGIN_X;
 
     #[test]
     fn execute_a_legal_move(){
-        let piece = PlacedPiece::at_origin_with_shape(I);
+        let piece = PlacedPiece::at_origin_with_shape(Shape::i());
 
         let piece_keeper = PieceKeeper::default();
 

@@ -1,10 +1,7 @@
-use super::shape::Shape;
 use ::rand::{StdRng, Rng};
-
-#[derive(Copy, Clone)]
-pub struct TetrominoGenerator {
-    rng: StdRng
-}
+use super::shape::*;
+use super::Shape;
+use super::TetrominoGenerator;
 
 impl TetrominoGenerator{
     pub fn new(rng: StdRng) -> Self{
@@ -17,7 +14,7 @@ impl TetrominoGenerator{
         let mut rng = self.rng;
         let random = rng.gen_range(0, 7);
         let tetromino = match random {
-            0 => Some(Shape::i()),
+            0 => Some(I),
             1 => Some(Shape::j()),
             2 => Some(Shape::l()),
             3 => Some(Shape::z()),
@@ -40,9 +37,8 @@ impl Default for TetrominoGenerator {
 
 #[cfg(test)]
 mod should {
-    use super::TetrominoGenerator;
-    use super::Shape;
     use ::rand::{StdRng, SeedableRng};
+    use super::*;
 
     #[test]
     fn return_a_tetromino(){

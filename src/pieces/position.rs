@@ -1,8 +1,4 @@
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Position {
-    pub x: i8,
-    pub y: i8,
-}
+use super::Position;
 
 impl Position {
     pub fn new(x: i8, y: i8) -> Self {
