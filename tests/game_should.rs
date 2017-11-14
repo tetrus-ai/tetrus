@@ -2,32 +2,17 @@ extern crate rand;
 extern crate tetrus;
 
 mod game_should {
-    use tetrus::game::Game;
+    use tetrus::game::*;
     use tetrus::engine::command::Command;
     use tetrus::engine::position::Position;
     use tetrus::objects::shape::Shape;
     use tetrus::objects::tetromino_generator::TetrominoGenerator;
-    use tetrus::objects::well::Well;
     use rand::{SeedableRng, StdRng};
-
-    const ORIGIN: Position = Position{ x:ORIGIN_X, y:ORIGIN_Y };
-    const ORIGIN_X: i8 = 0;
-    const ORIGIN_Y: i8 = 0;
-
-    const BOUNDARY_LEFT: i8 = -4;
-    const BOUNDARY_RIGHT: i8 = 4;
-    const BOUNDARY_BOTTOM: i8 = 20;
 
     #[test]
     fn have_score_zero_when_new() {
         let game = default();
         assert_eq!(game.score, 0);
-    }
-
-    #[test]
-    fn have_empty_well_when_new() {
-        let game = default();
-        assert_eq!(game.well, Well::empty());
     }
 
     #[test]
@@ -38,7 +23,7 @@ mod game_should {
     }
 
     #[test]
-    fn place_current_tetromino_at_5_2() {
+    fn place_current_tetromino_at_origin() {
         let game = default();
         assert_eq!(game.current.shape, Shape::i());
         assert_eq!(game.current.position, ORIGIN);
@@ -48,7 +33,7 @@ mod game_should {
     fn drop_current_piece_when_tick_finishes() {
         let game = default();
         let game = game.tick();
-        assert_eq!(game.current.position, Position::new(ORIGIN_X, ORIGIN_Y + 1));
+        assert_eq!(game.current.position, Position::new(ORIGIN_X, ORIGIN_Y + MOVE_SPEED));
     }
 
     #[test]
@@ -56,7 +41,7 @@ mod game_should {
         let game = default();
         let left_command = Command::MoveLeft;
         let game = game.issue_command(left_command);
-        assert_eq!(game.current.position, Position::new(ORIGIN_X - 1, ORIGIN_Y))
+        assert_eq!(game.current.position, Position::new(ORIGIN_X - MOVE_SPEED, ORIGIN_Y))
     }
 
     #[test]
@@ -64,7 +49,7 @@ mod game_should {
         let game = default();
         let right_command = Command::MoveRight;
         let game = game.issue_command(right_command);
-        assert_eq!(game.current.position, Position::new(ORIGIN_X + 1, ORIGIN_Y))
+        assert_eq!(game.current.position, Position::new(ORIGIN_X + MOVE_SPEED, ORIGIN_Y))
     }
 
     #[test]
