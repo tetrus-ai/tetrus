@@ -9,7 +9,7 @@ pub struct PlacedPiece {
 }
 
 impl PlacedPiece {
-    pub fn at_origin(shape: Shape) -> Self{
+    pub const fn at_origin_with_shape(shape: Shape) -> Self{
         PlacedPiece {
             shape,
             position: ORIGIN
@@ -48,7 +48,7 @@ mod should{
 
     #[test]
     fn decrease_x_by_one_when_moved_left(){
-        let current = PlacedPiece::at_origin(Shape::i());
+        let current = PlacedPiece::at_origin_with_shape(Shape::i());
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x - MOVE_SPEED;
@@ -60,7 +60,7 @@ mod should{
 
     #[test]
     fn increase_x_by_one_when_moved_right(){
-        let current = PlacedPiece::at_origin(Shape::i());
+        let current = PlacedPiece::at_origin_with_shape(Shape::i());
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x + MOVE_SPEED;

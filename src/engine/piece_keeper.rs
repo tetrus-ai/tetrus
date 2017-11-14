@@ -38,3 +38,23 @@ pub fn respects_rule(rule: &Fn(&PlacedPiece) -> RuleEvaluationResult, piece: &Pl
         RuleEvaluationResult::Violated => false
     }
 }
+
+#[cfg(test)]
+mod should{
+    use super::*;
+    use ::engine::piece::PlacedPiece;
+    use ::objects::shape::I;
+    use ::engine::command::Command::*;
+    use ::game::ORIGIN_X;
+
+    #[test]
+    fn execute_a_legal_move(){
+        let piece = PlacedPiece::at_origin_with_shape(I);
+
+        let piece_keeper = PieceKeeper::default();
+
+        let piece = piece_keeper.execute_command(MoveLeft, piece);
+
+        assert_eq!(piece.position.x, ORIGIN_X - 1);
+    }
+}

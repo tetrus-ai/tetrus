@@ -2,6 +2,8 @@
 pub struct Shape {
 }
 
+pub const I: Shape = Shape{};
+
 impl Shape {
     fn new() -> Self{
         Shape {

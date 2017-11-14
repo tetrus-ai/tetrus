@@ -1,5 +1,5 @@
-// this is super weird that I have to do this
-// surely the compiler is aware that these modules exist on the STD namespace?
+#![feature(const_fn)]
+
 pub mod engine;
 pub mod objects;
 pub mod game;

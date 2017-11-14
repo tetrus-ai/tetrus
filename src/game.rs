@@ -26,7 +26,7 @@ pub struct Game{
 impl Game{
     pub fn new(generator: TetrominoGenerator) -> Game {
         let (generator, shape) = generator.next();
-        let initial_piece = PlacedPiece::at_origin(shape.unwrap());
+        let initial_piece = PlacedPiece::at_origin_with_shape(shape.unwrap());
         let up_next = UpNext::new(generator);
         Game {
             score: 0,
