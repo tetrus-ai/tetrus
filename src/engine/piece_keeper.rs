@@ -6,9 +6,6 @@ use super::rules::out_of_bounds::*;
 pub struct PieceKeeper{}
 
 impl PieceKeeper{
-    /* executes commands against a ruleset
-       e.g. out_of_bounds::outside_of_left_boundary(&attempted_move)
-    */
     pub fn execute_command(&self, command: Command, piece: Piece) -> Piece{
         let attempted_move = match command {
             Command::MoveLeft => piece.move_left(),
@@ -17,12 +14,20 @@ impl PieceKeeper{
         };
 
         let mut is_allowed = true;
-        is_allowed &= !outside_of_left_boundary(&attempted_move);
-        is_allowed &= !outside_of_right_boundary(&attempted_move);
+        is_allowed &= respects_rule(&outside_of_left_boundary, &attempted_move);
+        is_allowed &= respects_rule(&outside_of_right_boundary, &attempted_move);
         
+        #[allow(match_bool)]
         match is_allowed {
             true => attempted_move,
             false => piece
         }
+    }
+}
+
+pub fn respects_rule(rule: &Fn(&Piece) -> RuleEvaluationResult, piece: &Piece) -> bool {
+    match rule(piece){
+        RuleEvaluationResult::Respected => true,
+        RuleEvaluationResult::Violated => false
     }
 }
