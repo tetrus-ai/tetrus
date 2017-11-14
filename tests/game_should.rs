@@ -69,10 +69,24 @@ mod game_should {
     #[test]
     fn not_allow_a_piece_to_pass_left_boundary() {
         let game = move_to_left_boundary(default());
-        let left_move = Command::MoveLeft;
-        let game = game.issue_command(left_move);
+        let game = game.issue_command(Command::MoveLeft);
 
         assert_eq!(game.current.position, Position::new(0, 2));
+    }
+
+    #[test]
+    fn allow_a_piece_to_move_right_boundary() {
+        let game = move_to_right_boundary(default());
+
+        assert_eq!(game.current.position, Position::new(9, 2));
+    }
+
+    #[test]
+    fn not_allow_a_piece_to_pass_right_boundary() {
+        let game = move_to_right_boundary(default());
+        let game = game.issue_command(Command::MoveRight);
+
+        assert_eq!(game.current.position, Position::new(9, 2));
     }
 
     fn default() -> Game{
@@ -90,6 +104,13 @@ mod game_should {
         match game.current.position.x{
             0 => game,
             _ => move_to_left_boundary(game.issue_command(Command::MoveLeft))
+        }
+    }
+
+    fn move_to_right_boundary(game: Game ) -> Game{
+        match game.current.position.x{
+            9 => game,
+            _ => move_to_right_boundary(game.issue_command(Command::MoveRight))
         }
     }
 }
