@@ -4,14 +4,14 @@ extern crate tetrus;
 mod banana {
     use tetrus::game::Game;
     use tetrus::game::PlayAreaSize;
-    use tetrus::pieces::TetrominoGenerator;
+    use tetrus::pieces::TetrominoStream;
     use tetrus::movements::Command::*;
 
     #[test]
     fn stacking_two_pieces() {
         let game = Game::default_ruleset(PlayAreaSize::with_width_and_height(3, 6));
 
-        // TODO: assert that I can see 2 queued pieces and one active
+        let next_pieces = game.next_pieces;
 
         game.issue_command(MoveToLeftEdge);
 
@@ -21,6 +21,7 @@ mod banana {
 
         game.issue_command(MoveToRightEdge);
         game.issue_command(DropToBottom);
+
         // TODO: assert that the queue has been updated
 
         // TODO: assert the final state of the well

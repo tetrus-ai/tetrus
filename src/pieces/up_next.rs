@@ -1,22 +1,22 @@
-use super::UpNext;
+use super::TetrominoBuffer;
 use super::Shape;
-use super::TetrominoGenerator;
+use super::TetrominoStream;
 
-impl UpNext {
-    pub fn new(generator: TetrominoGenerator) -> UpNext {
+impl TetrominoBuffer {
+    pub fn new(generator: TetrominoStream) -> TetrominoBuffer {
         let (generator, first) = generator.next();
         let (generator, second) = generator.next();
-        UpNext {
+        TetrominoBuffer {
             generator,
             first: first.unwrap(),
             second: second.unwrap(),
         }
     }
 
-    pub fn next(&self) -> (UpNext, Shape) {
+    pub fn next(&self) -> (TetrominoBuffer, Shape) {
         let current = self.first;
         let (generator, next) = self.generator.next();
-        let up_next = UpNext {
+        let up_next = TetrominoBuffer {
             first: self.second,
             second: next.unwrap(),
             generator,
@@ -27,13 +27,13 @@ impl UpNext {
 
 #[cfg(test)]
 mod should {
-    use super::TetrominoGenerator;
-    use super::UpNext;
+    use super::TetrominoStream;
+    use super::TetrominoBuffer;
 
     #[test]
     fn set_new_current_to_old_first() {
-        let generator = TetrominoGenerator::default();
-        let up_next = UpNext::new(generator);
+        let generator = TetrominoStream::default();
+        let up_next = TetrominoBuffer::new(generator);
 
         let expected_current = up_next.first;
         let (_up_next, current) = up_next.next();
@@ -43,8 +43,8 @@ mod should {
 
     #[test]
     fn set_new_first_to_old_second() {
-        let generator = TetrominoGenerator::default();
-        let up_next = UpNext::new(generator);
+        let generator = TetrominoStream::default();
+        let up_next = TetrominoBuffer::new(generator);
 
         let expected_first = up_next.second;
         let (up_next, _current) = up_next.next();

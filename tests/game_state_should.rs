@@ -6,7 +6,7 @@ mod game_state_should {
     use tetrus::game::GameState;
     use tetrus::game::game_state::*;
     use tetrus::movements::Command::*;
-    use tetrus::pieces::{Position, Shape, TetrominoGenerator};
+    use tetrus::pieces::{Position, Shape, TetrominoStream};
     use tetrus::pieces::shape::*;
     use rand::{SeedableRng, StdRng};
 
@@ -19,8 +19,8 @@ mod game_state_should {
     #[test]
     fn populate_up_next() {
         let game = with_seed(&[2]);
-        assert_eq!(game.up_next.first, Z);
-        assert_eq!(game.up_next.second, O);
+        assert_eq!(game.next_pieces.first, Z);
+        assert_eq!(game.next_pieces.second, O);
     }
 
     #[test]
@@ -113,13 +113,13 @@ mod game_state_should {
     }
 
     fn default() -> GameState {
-        let generator = TetrominoGenerator::default();
+        let generator = TetrominoStream::default();
         GameState::new(generator)
     }
 
     fn with_seed(seed: &[usize]) -> GameState {
         let rng = StdRng::from_seed(seed);
-        let generator = TetrominoGenerator::new(rng);
+        let generator = TetrominoStream::new(rng);
         GameState::new(generator)
     }
 

@@ -2,13 +2,13 @@ use rand::StdRng;
 
 mod position;
 mod up_next;
-mod tetromino_generator;
+mod tetromino_stream;
 mod placed_piece;
 
 pub mod shape;
 
 #[derive(Copy, Clone)]
-pub struct TetrominoGenerator {
+pub struct TetrominoStream {
     rng: StdRng,
 }
 
@@ -19,10 +19,10 @@ pub struct PlacedPiece {
 }
 
 #[derive(Clone, Copy)]
-pub struct UpNext {
+pub struct TetrominoBuffer {
     pub first: Shape,
     pub second: Shape,
-    generator: TetrominoGenerator,
+    generator: TetrominoStream,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
