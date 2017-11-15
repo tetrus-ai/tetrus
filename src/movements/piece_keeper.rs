@@ -28,6 +28,7 @@ impl PieceKeeper {
             Command::MoveLeft => original_piece.move_left(),
             Command::MoveRight => original_piece.move_right(),
             Command::Drop => original_piece.drop_by_one(),
+            _ => panic!(),
         }
     }
 }

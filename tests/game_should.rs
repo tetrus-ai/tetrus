@@ -1,6 +1,7 @@
 extern crate rand;
 extern crate tetrus;
 
+#[cfg(test)]
 mod game_should {
     use tetrus::game::*;
     use tetrus::movements::Command::*;
