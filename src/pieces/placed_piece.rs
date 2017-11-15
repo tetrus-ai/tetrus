@@ -37,7 +37,6 @@ impl PlacedPiece {
 #[cfg(test)]
 mod should {
     use super::PlacedPiece;
-    use super::super::placed_piece;
     use game::MOVE_SPEED;
     use pieces::Shape;
 

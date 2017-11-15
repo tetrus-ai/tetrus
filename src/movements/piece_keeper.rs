@@ -8,6 +8,8 @@ impl PieceKeeper {
         let unverified_piece = PieceKeeper::get_unverified_piece(command, original_piece);
         let is_allowed = PieceKeeper::check_rules(&unverified_piece);
 
+        #[allow(unknown_lints)]
+        #[allow(match_bool)]
         match is_allowed {
             true => unverified_piece,
             false => original_piece,
