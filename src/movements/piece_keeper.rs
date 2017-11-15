@@ -1,16 +1,16 @@
 use super::Command;
 use super::PieceKeeper;
-use super::super::rules::*;
-use super::super::pieces::PlacedPiece;
+use rules::*;
+use pieces::PlacedPiece;
 
-impl PieceKeeper{
+impl PieceKeeper {
     pub fn execute_command(&self, command: Command, original_piece: PlacedPiece) -> PlacedPiece {
         let unverified_piece = PieceKeeper::get_unverified_piece(command, original_piece);
         let is_allowed = PieceKeeper::check_rules(&unverified_piece);
 
         match is_allowed {
             true => unverified_piece,
-            false => original_piece
+            false => original_piece,
         }
     }
 
@@ -25,27 +25,27 @@ impl PieceKeeper{
         match command {
             Command::MoveLeft => original_piece.move_left(),
             Command::MoveRight => original_piece.move_right(),
-            Command::Drop => original_piece.drop_by_one()
+            Command::Drop => original_piece.drop_by_one(),
         }
     }
 }
 
 pub fn respects_rule(rule: &Fn(&PlacedPiece) -> RuleEvaluationResult, piece: &PlacedPiece) -> bool {
-    match rule(piece){
+    match rule(piece) {
         RuleEvaluationResult::Respected => true,
-        RuleEvaluationResult::Violated => false
+        RuleEvaluationResult::Violated => false,
     }
 }
 
 #[cfg(test)]
-mod should{
-    use ::game::*;
-    use ::movements::Command::*;
-    use ::pieces::Shape;
+mod should {
+    use game::*;
+    use movements::Command::*;
+    use pieces::Shape;
     use super::*;
 
     #[test]
-    fn execute_a_legal_move(){
+    fn execute_a_legal_move() {
         let piece = PlacedPiece::at_origin_with_shape(Shape::i());
 
         let piece_keeper = PieceKeeper::default();

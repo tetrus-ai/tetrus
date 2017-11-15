@@ -27,8 +27,8 @@ impl Position {
     }
 }
 
-impl Into<(i8,i8)> for Position {
-    fn into(self) -> (i8,i8) {
+impl Into<(i8, i8)> for Position {
+    fn into(self) -> (i8, i8) {
         (self.x, self.y)
     }
 }
@@ -88,6 +88,6 @@ mod should {
 
         assert_eq!(position.x, expected_x);
         assert_eq!(position.y, initial_y);
-        
+
     }
 }

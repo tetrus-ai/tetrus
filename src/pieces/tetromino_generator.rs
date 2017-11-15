@@ -1,13 +1,11 @@
-use ::rand::{StdRng, Rng};
+use rand::{StdRng, Rng};
 use super::shape::*;
 use super::Shape;
 use super::TetrominoGenerator;
 
-impl TetrominoGenerator{
-    pub fn new(rng: StdRng) -> Self{
-        TetrominoGenerator{
-            rng
-        }
+impl TetrominoGenerator {
+    pub fn new(rng: StdRng) -> Self {
+        TetrominoGenerator { rng }
     }
 
     pub fn next(&self) -> (TetrominoGenerator, Option<Shape>) {
@@ -21,7 +19,7 @@ impl TetrominoGenerator{
             4 => Some(Shape::s()),
             5 => Some(Shape::o()),
             6 => Some(Shape::t()),
-            _ => None
+            _ => None,
         };
         (TetrominoGenerator::new(self.rng), tetromino)
     }
@@ -29,19 +27,17 @@ impl TetrominoGenerator{
 
 impl Default for TetrominoGenerator {
     fn default() -> Self {
-        TetrominoGenerator{
-            rng: StdRng::new().unwrap()
-        }
+        TetrominoGenerator { rng: StdRng::new().unwrap() }
     }
 }
 
 #[cfg(test)]
 mod should {
-    use ::rand::{StdRng, SeedableRng};
+    use rand::{StdRng, SeedableRng};
     use super::*;
 
     #[test]
-    fn return_a_tetromino(){
+    fn return_a_tetromino() {
         let rng = StdRng::from_seed(&[1]);
         let generator = TetrominoGenerator::new(rng);
         let (_generator, tetromino) = generator.next();
@@ -50,7 +46,7 @@ mod should {
     }
 
     #[test]
-    fn never_return_none(){
+    fn never_return_none() {
         let generator = TetrominoGenerator::default();
         for _ in 0..1000 {
             let (_generator, tetromino) = generator.next();

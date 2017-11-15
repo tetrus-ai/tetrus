@@ -1,4 +1,4 @@
-use ::rand::StdRng;
+use rand::StdRng;
 
 mod position;
 mod shape;
@@ -9,20 +9,20 @@ mod placed_piece;
 
 #[derive(Copy, Clone)]
 pub struct TetrominoGenerator {
-    rng: StdRng
+    rng: StdRng,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct PlacedPiece {
     pub shape: Shape,
-    pub position: Position
+    pub position: Position,
 }
 
 #[derive(Clone, Copy)]
-pub struct UpNext{
+pub struct UpNext {
     pub first: Shape,
     pub second: Shape,
-    generator: TetrominoGenerator
+    generator: TetrominoGenerator,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -32,5 +32,4 @@ pub struct Position {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Shape {
-}
+pub struct Shape {}

@@ -1,32 +1,31 @@
 use super::Shape;
 
-pub const I: Shape = Shape{};
+pub const I: Shape = Shape {};
 
 impl Shape {
-    const fn new() -> Self{
-        Shape {
-        }
+    const fn new() -> Self {
+        Shape {}
     }
 
-    pub const fn i() -> Self{
+    pub const fn i() -> Self {
         Shape::new()
     }
-    pub fn j() -> Self{
+    pub fn j() -> Self {
         Shape::new()
     }
-    pub fn l() -> Self{
+    pub fn l() -> Self {
         Shape::new()
     }
-    pub fn s() -> Self{
+    pub fn s() -> Self {
         Shape::new()
     }
-    pub fn t() -> Self{
+    pub fn t() -> Self {
         Shape::new()
     }
-    pub fn o() -> Self{
+    pub fn o() -> Self {
         Shape::new()
     }
-    pub fn z() -> Self{
+    pub fn z() -> Self {
         Shape::new()
     }
 }

@@ -26,34 +26,39 @@ pub fn outside_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
 }
 
 #[cfg(test)]
-mod should{
-    use ::game::*;
+mod should {
+    use game::*;
     use super::*;
-    use ::pieces::Shape;
+    use pieces::Shape;
 
-    const SOME_PIECE: PlacedPiece =
-        PlacedPiece::at_origin_with_shape(Shape::i());
+    const SOME_PIECE: PlacedPiece = PlacedPiece::at_origin_with_shape(Shape::i());
 
     #[test]
-    fn allow_piece_to_move_to_boundary(){
+    fn allow_piece_to_move_to_boundary() {
         let piece = move_to_left_boundary(SOME_PIECE);
 
-        assert_eq!(RuleEvaluationResult::Respected, outside_of_left_boundary(&piece));
+        assert_eq!(
+            RuleEvaluationResult::Respected,
+            outside_of_left_boundary(&piece)
+        );
     }
 
     #[test]
-    fn not_allow_piece_to_move_beyond_boundary(){
+    fn not_allow_piece_to_move_beyond_boundary() {
         let piece = move_to_left_boundary(SOME_PIECE);
 
         let piece = piece.move_left();
 
-        assert_eq!(RuleEvaluationResult::Violated, outside_of_left_boundary(&piece));
+        assert_eq!(
+            RuleEvaluationResult::Violated,
+            outside_of_left_boundary(&piece)
+        );
     }
 
-    fn move_to_left_boundary(piece: PlacedPiece) -> PlacedPiece{
-        match piece.position.x{
+    fn move_to_left_boundary(piece: PlacedPiece) -> PlacedPiece {
+        match piece.position.x {
             BOUNDARY_LEFT => piece,
-            _ => move_to_left_boundary(piece.move_left())
+            _ => move_to_left_boundary(piece.move_left()),
         }
     }
 }

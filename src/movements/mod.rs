@@ -4,8 +4,8 @@ mod piece_keeper;
 pub enum Command {
     MoveLeft,
     MoveRight,
-    Drop
+    Drop,
 }
 
 #[derive(Clone, Copy, Default)]
-pub struct PieceKeeper{}
+pub struct PieceKeeper {}

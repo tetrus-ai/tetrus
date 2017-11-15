@@ -2,7 +2,7 @@ use super::UpNext;
 use super::Shape;
 use super::TetrominoGenerator;
 
-impl UpNext{
+impl UpNext {
     pub fn new(generator: TetrominoGenerator) -> UpNext {
         let (generator, first) = generator.next();
         let (generator, second) = generator.next();
@@ -30,7 +30,7 @@ mod should {
     use super::Shape;
     use super::TetrominoGenerator;
     use super::UpNext;
-    use ::rand::{StdRng, SeedableRng};
+    use rand::{StdRng, SeedableRng};
 
     #[test]
     fn set_new_current_to_old_first() {

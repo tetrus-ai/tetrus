@@ -1,14 +1,13 @@
 #[derive(Debug, Default, Copy, Clone)]
-pub struct Square{
-}
+pub struct Square {}
 
-impl Square{
+impl Square {
     pub fn empty() -> Self {
-        Square{}
+        Square {}
     }
 }
 
-impl PartialEq for Square{
+impl PartialEq for Square {
     fn eq(&self, _other: &Square) -> bool {
         true
     }
