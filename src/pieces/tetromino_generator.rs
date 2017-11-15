@@ -19,7 +19,7 @@ impl TetrominoGenerator {
             4 => Some(S),
             5 => Some(O),
             6 => Some(T),
-            _ => None,
+            _ => panic!("must always provide a tetromino"),
         };
         (TetrominoGenerator::new(self.rng), tetromino)
     }
