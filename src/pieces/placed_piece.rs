@@ -36,13 +36,13 @@ impl PlacedPiece {
 
 #[cfg(test)]
 mod should {
-    use super::PlacedPiece;
     use game::MOVE_SPEED;
-    use pieces::Shape;
+    use pieces::shape::I;
+    use super::*;
 
     #[test]
     fn decrease_x_by_one_when_moved_left() {
-        let current = PlacedPiece::at_origin_with_shape(Shape::i());
+        let current = PlacedPiece::at_origin_with_shape(I);
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x - MOVE_SPEED;
@@ -54,7 +54,7 @@ mod should {
 
     #[test]
     fn increase_x_by_one_when_moved_right() {
-        let current = PlacedPiece::at_origin_with_shape(Shape::i());
+        let current = PlacedPiece::at_origin_with_shape(I);
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x + MOVE_SPEED;

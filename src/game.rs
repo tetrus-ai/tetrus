@@ -1,6 +1,5 @@
 use super::pieces::{PlacedPiece, TetrominoGenerator};
 use super::movements::{PieceKeeper, Command};
-use super::movements::Command::Drop;
 use super::pieces::{UpNext, Position};
 
 pub const ORIGIN: Position = Position {
@@ -36,21 +35,8 @@ impl Game {
         }
     }
 
-    pub fn tick(&self) -> Game {
-        let moved_piece = self.piece_keeper.execute_command(Drop, self.current_piece);
-        Game {
-            score: self.score,
-            up_next: self.up_next,
-            current_piece: moved_piece,
-            piece_keeper: self.piece_keeper,
-        }
-    }
-
     pub fn issue_command(&self, command: Command) -> Game {
-        let moved_piece = self.piece_keeper.execute_command(
-            command,
-            self.current_piece,
-        );
+        let moved_piece = self.piece_keeper.execute(command, self.current_piece);
         Game {
             score: self.score,
             up_next: self.up_next,
@@ -76,14 +62,13 @@ mod new_game_should {
 #[cfg(test)]
 mod started_game_should {
     use super::*;
-    use pieces::{Position, Shape, TetrominoGenerator};
+    use pieces::{Position, TetrominoGenerator};
     use rand::{StdRng, SeedableRng};
 
     #[test]
     fn have_a_tetromino_in_play() {
         let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
         let game = Game::new(generator);
-        assert_eq!(game.current_piece.shape, Shape::l());
         assert_eq!(
             game.current_piece.position,
             Position::new(ORIGIN_X, ORIGIN_Y)

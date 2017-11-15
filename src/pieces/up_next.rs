@@ -27,10 +27,8 @@ impl UpNext {
 
 #[cfg(test)]
 mod should {
-    use super::Shape;
     use super::TetrominoGenerator;
     use super::UpNext;
-    use rand::{StdRng, SeedableRng};
 
     #[test]
     fn set_new_current_to_old_first() {
@@ -52,15 +50,5 @@ mod should {
         let (up_next, _current) = up_next.next();
 
         assert_eq!(up_next.first, expected_first);
-    }
-
-    #[test]
-    fn set_new_second_to_expected_from_rng() {
-        let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
-        let up_next = UpNext::new(generator);
-
-        let (up_next, _current) = up_next.next();
-
-        assert_eq!(up_next.second, Shape::t());
     }
 }

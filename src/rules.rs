@@ -28,10 +28,10 @@ pub fn outside_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
 #[cfg(test)]
 mod should {
     use game::*;
+    use pieces::shape::I;
     use super::*;
-    use pieces::Shape;
 
-    const SOME_PIECE: PlacedPiece = PlacedPiece::at_origin_with_shape(Shape::i());
+    const SOME_PIECE: PlacedPiece = PlacedPiece::at_origin_with_shape(I);
 
     #[test]
     fn allow_piece_to_move_to_boundary() {

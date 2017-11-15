@@ -13,12 +13,12 @@ impl TetrominoGenerator {
         let random = rng.gen_range(0, 7);
         let tetromino = match random {
             0 => Some(I),
-            1 => Some(Shape::j()),
-            2 => Some(Shape::l()),
-            3 => Some(Shape::z()),
-            4 => Some(Shape::s()),
-            5 => Some(Shape::o()),
-            6 => Some(Shape::t()),
+            1 => Some(J),
+            2 => Some(L),
+            3 => Some(Z),
+            4 => Some(S),
+            5 => Some(O),
+            6 => Some(T),
             _ => None,
         };
         (TetrominoGenerator::new(self.rng), tetromino)
@@ -34,6 +34,7 @@ impl Default for TetrominoGenerator {
 #[cfg(test)]
 mod should {
     use rand::{StdRng, SeedableRng};
+    use pieces::shape::O;
     use super::*;
 
     #[test]
@@ -42,7 +43,7 @@ mod should {
         let generator = TetrominoGenerator::new(rng);
         let (_generator, tetromino) = generator.next();
 
-        assert_eq!(tetromino.unwrap(), Shape::o())
+        assert_eq!(tetromino.unwrap(), O)
     }
 
     #[test]

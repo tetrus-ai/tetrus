@@ -1,11 +1,12 @@
 use rand::StdRng;
 
 mod position;
-mod shape;
 mod square;
 mod up_next;
 mod tetromino_generator;
 mod placed_piece;
+
+pub mod shape;
 
 #[derive(Copy, Clone)]
 pub struct TetrominoGenerator {
