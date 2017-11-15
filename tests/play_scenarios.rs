@@ -14,6 +14,7 @@ mod banana {
         // TODO: assert that I can see 2 queued pieces and one active
 
         game.issue_command(MoveToLeftEdge);
+
         game.issue_command(DropToBottom);
 
         // TODO: assert that the queue has been updated

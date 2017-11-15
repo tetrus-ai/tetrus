@@ -1,7 +1,6 @@
 use rand::StdRng;
 
 mod position;
-mod square;
 mod up_next;
 mod tetromino_generator;
 mod placed_piece;
