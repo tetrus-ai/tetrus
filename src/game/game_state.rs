@@ -1,6 +1,7 @@
-use super::pieces::{PlacedPiece, TetrominoGenerator};
-use super::movements::{PieceKeeper, Command};
-use super::pieces::{UpNext, Position};
+use pieces::{PlacedPiece, TetrominoGenerator};
+use movements::{PieceKeeper, Command};
+use pieces::{UpNext, Position};
+use super::GameState;
 
 pub const ORIGIN: Position = Position {
     x: ORIGIN_X,
@@ -15,19 +16,12 @@ pub const BOUNDARY_BOTTOM: i8 = 20;
 
 pub const MOVE_SPEED: i8 = 1;
 
-pub struct Game {
-    pub score: u32,
-    pub up_next: UpNext,
-    pub current_piece: PlacedPiece,
-    piece_keeper: PieceKeeper,
-}
-
-impl Game {
-    pub fn new(generator: TetrominoGenerator) -> Game {
+impl GameState {
+    pub fn new(generator: TetrominoGenerator) -> GameState {
         let (generator, shape) = generator.next();
         let initial_piece = PlacedPiece::at_origin_with_shape(shape.unwrap());
         let up_next = UpNext::new(generator);
-        Game {
+        GameState {
             score: 0,
             current_piece: initial_piece,
             piece_keeper: PieceKeeper::default(),
@@ -35,9 +29,9 @@ impl Game {
         }
     }
 
-    pub fn issue_command(&self, command: Command) -> Game {
+    pub fn issue_command(&self, command: Command) -> GameState {
         let moved_piece = self.piece_keeper.execute(command, self.current_piece);
-        Game {
+        GameState {
             score: self.score,
             up_next: self.up_next,
             current_piece: moved_piece,
@@ -48,13 +42,13 @@ impl Game {
 
 #[cfg(test)]
 mod new_game_should {
-    use super::Game;
+    use super::GameState;
     use pieces::TetrominoGenerator;
 
     #[test]
     fn have_a_score_of_zero() {
         let generator = TetrominoGenerator::default();
-        let game = Game::new(generator);
+        let game = GameState::new(generator);
         assert_eq!(game.score, 0);
     }
 }
@@ -68,7 +62,7 @@ mod started_game_should {
     #[test]
     fn have_a_tetromino_in_play() {
         let generator = TetrominoGenerator::new(StdRng::from_seed(&[1]));
-        let game = Game::new(generator);
+        let game = GameState::new(generator);
         assert_eq!(
             game.current_piece.position,
             Position::new(ORIGIN_X, ORIGIN_Y)
@@ -83,7 +77,7 @@ mod should {
     #[test]
     fn move_current_to_the_left_when_issued_a_move_left_command() {
         let generator = TetrominoGenerator::default();
-        let game = Game::new(generator);
+        let game = GameState::new(generator);
         let left_command = Command::MoveLeft;
 
         let game = game.issue_command(left_command);
@@ -97,7 +91,7 @@ mod should {
     #[test]
     fn move_current_to_the_right_when_issued_a_move_right_command() {
         let generator = TetrominoGenerator::default();
-        let game = Game::new(generator);
+        let game = GameState::new(generator);
         let right_command = Command::MoveRight;
 
         let game = game.issue_command(right_command);

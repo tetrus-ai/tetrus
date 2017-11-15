@@ -1,9 +1,8 @@
 #![feature(const_fn)]
 
+pub mod game;
 pub mod movements;
 pub mod pieces;
 pub mod rules;
-
-pub mod game;
 
 extern crate rand;

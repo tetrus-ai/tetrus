@@ -41,7 +41,7 @@ fn respects_rule(rule: &Fn(&PlacedPiece) -> RuleEvaluationResult, piece: &Placed
 
 #[cfg(test)]
 mod should {
-    use game::*;
+    use game::game_state::*;
     use movements::Command::*;
     use pieces::shape::I;
     use super::*;

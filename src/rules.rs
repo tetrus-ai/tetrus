@@ -1,4 +1,4 @@
-use game::{BOUNDARY_LEFT, BOUNDARY_RIGHT};
+use game::game_state::{BOUNDARY_LEFT, BOUNDARY_RIGHT};
 use super::pieces::PlacedPiece;
 
 #[derive(Debug, PartialEq)]
@@ -27,7 +27,7 @@ pub fn outside_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
 
 #[cfg(test)]
 mod should {
-    use game::*;
+    use game::game_state::*;
     use pieces::shape::I;
     use super::*;
 

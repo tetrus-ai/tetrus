@@ -2,8 +2,9 @@ extern crate rand;
 extern crate tetrus;
 
 #[cfg(test)]
-mod game_should {
-    use tetrus::game::*;
+mod game_state_should {
+    use tetrus::game::GameState;
+    use tetrus::game::game_state::*;
     use tetrus::movements::Command::*;
     use tetrus::pieces::{Position, Shape, TetrominoGenerator};
     use tetrus::pieces::shape::*;
@@ -111,32 +112,32 @@ mod game_should {
         );
     }
 
-    fn default() -> Game {
+    fn default() -> GameState {
         let generator = TetrominoGenerator::default();
-        Game::new(generator)
+        GameState::new(generator)
     }
 
-    fn with_seed(seed: &[usize]) -> Game {
+    fn with_seed(seed: &[usize]) -> GameState {
         let rng = StdRng::from_seed(seed);
         let generator = TetrominoGenerator::new(rng);
-        Game::new(generator)
+        GameState::new(generator)
     }
 
-    fn move_to_left_boundary(game: Game) -> Game {
+    fn move_to_left_boundary(game: GameState) -> GameState {
         match game.current_piece.position.x {
             BOUNDARY_LEFT => game,
             _ => move_to_left_boundary(game.issue_command(MoveLeft)),
         }
     }
 
-    fn move_to_right_boundary(game: Game) -> Game {
+    fn move_to_right_boundary(game: GameState) -> GameState {
         match game.current_piece.position.x {
             BOUNDARY_RIGHT => game,
             _ => move_to_right_boundary(game.issue_command(MoveRight)),
         }
     }
 
-    fn move_to_bottom(game: Game) -> Game {
+    fn move_to_bottom(game: GameState) -> GameState {
         match game.current_piece.position.y {
             BOUNDARY_BOTTOM => game,
             _ => move_to_bottom(game.issue_command(Drop)),
