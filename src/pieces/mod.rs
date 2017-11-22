@@ -42,11 +42,11 @@ pub trait TetrominoStream: Copy + Clone {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 enum ShapeName {
-    i,
-    j,
-    l,
-    o,
-    s,
-    z,
-    t
+    I,
+    J,
+    L,
+    O,
+    S,
+    Z,
+    T
 }

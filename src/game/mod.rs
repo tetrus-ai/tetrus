@@ -1,7 +1,6 @@
 use super::pieces::PlacedPiece;
 use super::movements::PieceKeeper;
 use super::pieces::RandomTetrominoBuffer;
-use super::pieces::RandomTetrominoStream;
 
 pub mod game;
 pub mod game_state;

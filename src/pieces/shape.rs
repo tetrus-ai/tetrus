@@ -1,10 +1,10 @@
 use super::Shape;
-use super::ShapeName::*;
+use super::ShapeName;
 
-pub const I: Shape = Shape { name: i };
-pub const J: Shape = Shape { name: j };
-pub const L: Shape = Shape { name: l };
-pub const S: Shape = Shape { name: s };
-pub const T: Shape = Shape { name: t };
-pub const O: Shape = Shape { name: o };
-pub const Z: Shape = Shape { name: z };
+pub const I: Shape = Shape { name: ShapeName::I };
+pub const J: Shape = Shape { name: ShapeName::J };
+pub const L: Shape = Shape { name: ShapeName::L };
+pub const S: Shape = Shape { name: ShapeName::S };
+pub const T: Shape = Shape { name: ShapeName::T };
+pub const O: Shape = Shape { name: ShapeName::O };
+pub const Z: Shape = Shape { name: ShapeName::Z };

@@ -4,7 +4,6 @@ use super::PlayAreaSize;
 use super::GameState;
 use pieces::RandomTetrominoBuffer;
 use pieces::PlacedPiece;
-use pieces::shape::J;
 use pieces::RandomTetrominoStream;
 
 impl Game {
@@ -33,6 +32,15 @@ mod should {
         let game = Game::default_ruleset(some_size, buffer);
 
         assert_eq!(game.current.shape, expected_current);
+    }
+
+    #[test]
+    fn move_the_piece_on_a_command() {
+
+        // mock the controller
+        // see if the controller is called properly
+
+        // did the game state change ?
     }
 
     fn get_buffer() -> RandomTetrominoBuffer {

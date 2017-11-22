@@ -6,7 +6,7 @@ mod game_state_should {
     use tetrus::game::GameState;
     use tetrus::game::game_state::*;
     use tetrus::movements::Command::*;
-    use tetrus::pieces::{Position, Shape, RandomTetrominoStream};
+    use tetrus::pieces::{Position, RandomTetrominoStream};
     use tetrus::pieces::shape::*;
     use rand::{SeedableRng, StdRng};
 
