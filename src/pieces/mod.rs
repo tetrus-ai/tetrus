@@ -25,7 +25,9 @@ pub struct RandomTetrominoStream {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct Shape {}
+pub struct Shape {
+    name: ShapeName
+}
 
 #[derive(Clone, Copy, Debug)]
 pub struct TetrominoBuffer<S: TetrominoStream> {
@@ -36,4 +38,15 @@ pub struct TetrominoBuffer<S: TetrominoStream> {
 
 pub trait TetrominoStream: Copy + Clone {
     fn next(&self) -> (Self, Option<Shape>);
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum ShapeName {
+    i,
+    j,
+    l,
+    o,
+    s,
+    z,
+    t
 }

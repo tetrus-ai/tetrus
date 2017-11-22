@@ -1,10 +1,9 @@
 use super::TetrominoBuffer;
 use super::Shape;
-use super::TetrominoStream;
-use super::RandomTetrominoStream;
+use super::{RandomTetrominoStream, TetrominoStream};
 
 impl TetrominoBuffer<RandomTetrominoStream> {
-    pub fn new(stream: ) -> TetrominoBuffer<RandomTetrominoStream> {
+    pub fn new(stream: RandomTetrominoStream) -> TetrominoBuffer<RandomTetrominoStream> {
         let (stream, first) = stream.next();
         let (stream, second) = stream.next();
         TetrominoBuffer {
@@ -34,12 +33,12 @@ impl PartialEq for TetrominoBuffer<RandomTetrominoStream> {
 
 #[cfg(test)]
 mod should {
-    use super::TetrominoStream;
+    use super::RandomTetrominoStream;
     use super::TetrominoBuffer;
 
     #[test]
     fn set_new_current_to_old_first() {
-        let stream = TetrominoStream::default();
+        let stream = RandomTetrominoStream::default();
         let buffer = TetrominoBuffer::new(stream);
 
         let expected_current = buffer.first;
@@ -50,7 +49,7 @@ mod should {
 
     #[test]
     fn set_new_first_to_old_second() {
-        let stream = TetrominoStream::default();
+        let stream = RandomTetrominoStream::default();
         let buffer = TetrominoBuffer::new(stream);
 
         let expected_first = buffer.second;
@@ -61,7 +60,7 @@ mod should {
 
     #[test]
     fn be_equal_to_other_if_they_have_the_same_in_first_and_second() {
-        let stream = TetrominoStream::default();
+        let stream = RandomTetrominoStream::default();
         let first_buffer = TetrominoBuffer::new(stream);
         let second_buffer = TetrominoBuffer::new(stream);
 

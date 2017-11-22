@@ -9,7 +9,7 @@ mod banana {
 
     #[test]
     fn stacking_two_pieces() {
-        let game = Game::default_ruleset(PlayAreaSize::with_width_and_height(3, 6));
+        let mut game = Game::default_ruleset(PlayAreaSize::with_width_and_height(3, 6));
 
         let next_pieces = game.next_pieces;
 

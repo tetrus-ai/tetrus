@@ -9,7 +9,7 @@ impl RandomTetrominoStream {
     }
 }
 
-impl TetrominoStream for RandomTetrominoStream{
+impl TetrominoStream for RandomTetrominoStream {
     fn next(&self) -> (RandomTetrominoStream, Option<Shape>) {
         let mut rng = self.rng;
         let random = rng.gen_range(0, 7);
@@ -23,7 +23,7 @@ impl TetrominoStream for RandomTetrominoStream{
             6 => Some(T),
             _ => panic!("must always provide a tetromino"),
         };
-        (RandomTetrominoStream::new(self.rng), tetromino)
+        (RandomTetrominoStream::new(rng), tetromino)
     }
 }
 
@@ -46,6 +46,17 @@ mod should {
         let (_generator, tetromino) = generator.next();
 
         assert_eq!(tetromino.unwrap(), O)
+    }
+
+    #[test]
+    fn return_two_different_tetrominos_given_a_known_seed() {
+        let rng = StdRng::from_seed(&[3]);
+        let stream = RandomTetrominoStream::new(rng);
+        let (stream, first_tetromino) = stream.next();
+        let (_stream, second_tetromino) = stream.next();
+
+        assert_eq!(first_tetromino.unwrap(), J);
+        assert_eq!(second_tetromino.unwrap(), S)
     }
 
     #[test]

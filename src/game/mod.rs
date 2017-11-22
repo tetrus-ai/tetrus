@@ -8,7 +8,8 @@ pub mod game_state;
 pub mod play_area_size;
 
 pub struct Game {
-    pub next_pieces: TetrominoBuffer<RandomTetrominoStream>
+    pub next_pieces: TetrominoBuffer<RandomTetrominoStream>,
+    pub game_state: GameState
 }
 
 pub struct GameState {
