@@ -5,11 +5,14 @@ mod banana {
     use tetrus::game::Game;
     use tetrus::game::PlayAreaSize;
     use tetrus::pieces::RandomTetrominoStream;
+    use tetrus::pieces::RandomTetrominoBuffer;
     use tetrus::movements::Command::*;
 
     #[test]
     fn stacking_two_pieces() {
-        let mut game = Game::default_ruleset(PlayAreaSize::with_width_and_height(3, 6));
+        let buffer = RandomTetrominoBuffer::new(RandomTetrominoStream::default());
+        let narrow_play_area = PlayAreaSize::with_width_and_height(3, 6);
+        let mut game = Game::default_ruleset(narrow_play_area, buffer);
 
         let next_pieces = game.next_pieces;
 
@@ -17,7 +20,8 @@ mod banana {
 
         game.issue_command(DropToBottom);
 
-        assert_ne!(next_pieces, game.next_pieces);
+        assert_eq!(next_pieces.first, game.current.shape);
+        assert_eq!(next_pieces.second, game.next_pieces.first);
 
         game.issue_command(MoveToRightEdge);
         game.issue_command(DropToBottom);

@@ -1,6 +1,6 @@
 use pieces::{PlacedPiece, TetrominoStream, RandomTetrominoStream};
 use movements::{PieceKeeper, Command};
-use pieces::{TetrominoBuffer, Position};
+use pieces::{RandomTetrominoBuffer, Position};
 use super::GameState;
 
 pub const ORIGIN: Position = Position {
@@ -20,7 +20,7 @@ impl GameState {
     pub fn new(stream: RandomTetrominoStream) -> GameState {
         let (stream, shape) = stream.next();
         let initial_piece = PlacedPiece::at_origin_with_shape(shape.unwrap());
-        let next_pieces = TetrominoBuffer::new(stream);
+        let next_pieces = RandomTetrominoBuffer::new(stream);
         GameState {
             score: 0,
             current_piece: initial_piece,

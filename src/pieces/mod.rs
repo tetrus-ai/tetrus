@@ -30,10 +30,10 @@ pub struct Shape {
 }
 
 #[derive(Clone, Copy, Debug)]
-pub struct TetrominoBuffer<S: TetrominoStream> {
+pub struct RandomTetrominoBuffer {
     pub first: Shape,
     pub second: Shape,
-    stream: S
+    stream: RandomTetrominoStream
 }
 
 pub trait TetrominoStream: Copy + Clone {
