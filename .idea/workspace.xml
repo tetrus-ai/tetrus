@@ -35,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/src/game/game_state.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="660">
-              <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,24 +51,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3385">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#10067#10071#0" expanded="true" />
-                <element signature="e#10077#10081#0" expanded="true" />
-                <element signature="e#10160#10164#0" expanded="true" />
-                <element signature="e#10170#10174#0" expanded="true" />
-                <element signature="e#10262#10266#0" expanded="true" />
-                <element signature="e#10272#10276#0" expanded="true" />
-                <element signature="e#10355#10359#0" expanded="true" />
-                <element signature="e#10365#10369#0" expanded="true" />
-                <element signature="e#10445#10449#0" expanded="true" />
-                <element signature="e#10455#10459#0" expanded="true" />
-                <element signature="e#10470#10474#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="8932">
+              <caret line="406" column="58" lean-forward="false" selection-start-line="406" selection-start-column="58" selection-end-line="406" selection-end-column="58" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -103,21 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rustfmt.toml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rustfmt.toml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="play_scenarios.rs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="play_scenarios.rs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/play_scenarios.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="19" column="50" lean-forward="false" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+            <state relative-caret-position="264">
+              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -171,13 +149,13 @@
         <option value="$PROJECT_DIR$/src/pieces/tetromino_generator.rs" />
         <option value="$PROJECT_DIR$/src/game/game.rs" />
         <option value="$PROJECT_DIR$/tests/game_state_should.rs" />
-        <option value="$PROJECT_DIR$/tests/play_scenarios.rs" />
         <option value="$PROJECT_DIR$/src/pieces/tetromino_stream.rs" />
         <option value="$PROJECT_DIR$/src/game/game_state.rs" />
         <option value="$PROJECT_DIR$/src/game/mod.rs" />
         <option value="$PROJECT_DIR$/src/pieces/tetromino_buffer.rs" />
         <option value="$PROJECT_DIR$/src/pieces/mod.rs" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/tests/play_scenarios.rs" />
       </list>
     </option>
   </component>
@@ -360,6 +338,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -372,21 +354,22 @@
               <item name="tetrus" type="462c0819:PsiDirectoryNode" />
               <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="tetrus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tetrus" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="org.rust.cargo.project.configurable.RustProjectConfigurable" />
     <property name="SearchEverywhereHistoryKey" value="piece&#9;FILE&#9;file:///Users/dancohen/Git/tetrus/src/movements/piece_keeper.rs" />
   </component>
   <component name="RecentsManager">
@@ -410,6 +393,14 @@
     <configuration name="Test game_state_should::place_current_tetromino_at_origin" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
       <option name="channel" value="DEFAULT" />
       <option name="command" value="test --package tetrus --test game_state_should game_state_should::place_current_tetromino_at_origin -- --exact" />
+      <option name="nocapture" value="true" />
+      <option name="backtrace" value="FULL" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+    </configuration>
+    <configuration name="Unnamed" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="channel" value="NIGHTLY" />
+      <option name="command" value="test" />
       <option name="nocapture" value="true" />
       <option name="backtrace" value="FULL" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -497,24 +488,16 @@
       <listeners />
     </configuration>
     <configuration name="clippy" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-      <option name="channel" value="NIGHTLY" />
+      <option name="channel" value="DEFAULT" />
       <option name="command" value="clippy" />
       <option name="nocapture" value="true" />
       <option name="backtrace" value="FULL" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
     </configuration>
-    <configuration name="watchy" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-      <option name="channel" value="NIGHTLY" />
-      <option name="command" value="watch -s watchy " />
-      <option name="nocapture" value="true" />
-      <option name="backtrace" value="FULL" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <envs />
-    </configuration>
     <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="Cargo Command.watchy" />
-      <item index="1" class="java.lang.String" itemvalue="Cargo Command.clippy" />
+      <item index="0" class="java.lang.String" itemvalue="Cargo Command.clippy" />
+      <item index="1" class="java.lang.String" itemvalue="Cargo Command.Unnamed" />
       <item index="2" class="java.lang.String" itemvalue="Cargo Command.Test game_state_should::place_current_tetromino_at_origin" />
     </list>
     <recent_temporary>
@@ -538,12 +521,14 @@
       <workItem from="1510747459371" duration="11953000" />
       <workItem from="1510937940768" duration="3226000" />
       <workItem from="1511191371273" duration="140000" />
-      <workItem from="1511206430596" duration="1572000" />
+      <workItem from="1511206430596" duration="3117000" />
+      <workItem from="1511351346090" duration="356000" />
+      <workItem from="1511351762196" duration="41000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20510000" />
+    <option name="totallyTimeSpent" value="22452000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-672" y="-1440" width="2560" height="1440" extended-state="0" />
@@ -556,12 +541,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32933232" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933232" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12209768" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31705365" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1305044" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13370697" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24979983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -617,14 +602,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/game_state_should.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/game_state.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="836">
@@ -661,7 +638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -718,7 +694,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -883,7 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -891,14 +865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="9" column="76" lean-forward="false" selection-start-line="9" selection-start-column="69" selection-end-line="9" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/play_scenarios.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="50" lean-forward="false" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -939,7 +905,7 @@
     <entry file="file://$PROJECT_DIR$/src/game/game_state.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -952,23 +918,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src/libcore/result.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="904" column="0" lean-forward="false" selection-start-line="904" selection-start-column="0" selection-end-line="904" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3385">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#10067#10071#0" expanded="true" />
-            <element signature="e#10077#10081#0" expanded="true" />
-            <element signature="e#10160#10164#0" expanded="true" />
-            <element signature="e#10170#10174#0" expanded="true" />
-            <element signature="e#10262#10266#0" expanded="true" />
-            <element signature="e#10272#10276#0" expanded="true" />
-            <element signature="e#10355#10359#0" expanded="true" />
-            <element signature="e#10365#10369#0" expanded="true" />
-            <element signature="e#10445#10449#0" expanded="true" />
-            <element signature="e#10455#10459#0" expanded="true" />
-            <element signature="e#10470#10474#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="8932">
+          <caret line="406" column="58" lean-forward="false" selection-start-line="406" selection-start-column="58" selection-end-line="406" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/play_scenarios.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
