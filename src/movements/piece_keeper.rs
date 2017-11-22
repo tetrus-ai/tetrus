@@ -47,16 +47,42 @@ fn respects_rule(rule: &Fn(&PlacedPiece) -> RuleEvaluationResult, piece: &Placed
 mod should {
     use game::game_state::*;
     use pieces::shape::I;
+    use pieces::Position;
     use super::*;
 
     #[test]
     fn execute_a_legal_move() {
         let piece = PlacedPiece::at_origin_with_shape(I);
-
         let piece_keeper = PieceKeeper::default();
 
         let piece = piece_keeper.move_piece(Command::MoveLeft, piece);
 
         assert_eq!(piece.position.x, ORIGIN_X - 1);
+    }
+
+    #[test]
+    fn move_current_to_the_left_when_issued_a_move_left_command() {
+        let piece = PlacedPiece::at_origin_with_shape(I);
+        let piece_keeper = PieceKeeper::default();
+
+        let piece = piece_keeper.move_piece(Command::MoveLeft, piece);
+
+        assert_eq!(
+            piece.position,
+            Position::new(ORIGIN_X - MOVE_SPEED, ORIGIN_Y)
+        )
+    }
+
+    #[test]
+    fn move_current_to_the_right_when_issued_a_move_right_command() {
+        let piece = PlacedPiece::at_origin_with_shape(I);
+        let piece_keeper = PieceKeeper::default();
+
+        let piece = piece_keeper.move_piece(Command::MoveRight, piece);
+
+        assert_eq!(
+            piece.position,
+            Position::new(ORIGIN_X + MOVE_SPEED, ORIGIN_Y)
+        )
     }
 }

@@ -69,36 +69,3 @@ mod started_game_should {
         );
     }
 }
-
-#[cfg(test)]
-mod should {
-    use super::*;
-
-    #[test]
-    fn move_current_to_the_left_when_issued_a_move_left_command() {
-        let generator = RandomTetrominoStream::default();
-        let game = GameState::new(generator);
-        let left_command = Command::MoveLeft;
-
-        let game = game.issue_command(left_command);
-
-        assert_eq!(
-            game.current_piece.position,
-            Position::new(ORIGIN_X - MOVE_SPEED, ORIGIN_Y)
-        )
-    }
-
-    #[test]
-    fn move_current_to_the_right_when_issued_a_move_right_command() {
-        let generator = RandomTetrominoStream::default();
-        let game = GameState::new(generator);
-        let right_command = Command::MoveRight;
-
-        let game = game.issue_command(right_command);
-
-        assert_eq!(
-            game.current_piece.position,
-            Position::new(ORIGIN_X + MOVE_SPEED, ORIGIN_Y)
-        )
-    }
-}
