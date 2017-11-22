@@ -7,12 +7,14 @@ mod banana {
     use tetrus::pieces::RandomTetrominoStream;
     use tetrus::pieces::RandomTetrominoBuffer;
     use tetrus::movements::Command::*;
+    use tetrus::movements::BananaMotionController;
 
     #[test]
     fn stacking_two_pieces() {
         let buffer = RandomTetrominoBuffer::new(RandomTetrominoStream::default());
         let narrow_play_area = PlayAreaSize::with_width_and_height(3, 6);
-        let mut game = Game::default_ruleset(narrow_play_area, buffer);
+        let motion_controller = BananaMotionController::default();
+        let mut game = Game::default_ruleset(narrow_play_area, buffer, &motion_controller);
 
         let next_pieces = game.next_pieces;
 
