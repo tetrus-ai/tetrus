@@ -6,7 +6,7 @@ mod game_state_should {
     use tetrus::game::GameState;
     use tetrus::game::game_state::*;
     use tetrus::movements::Command::*;
-    use tetrus::pieces::{Position, Shape, TetrominoStream};
+    use tetrus::pieces::{Position, Shape, RandomTetrominoStream};
     use tetrus::pieces::shape::*;
     use rand::{SeedableRng, StdRng};
 
@@ -113,13 +113,13 @@ mod game_state_should {
     }
 
     fn default() -> GameState {
-        let generator = TetrominoStream::default();
+        let generator = RandomTetrominoStream::default();
         GameState::new(generator)
     }
 
     fn with_seed(seed: &[usize]) -> GameState {
         let rng = StdRng::from_seed(seed);
-        let generator = TetrominoStream::new(rng);
+        let generator = RandomTetrominoStream::new(rng);
         GameState::new(generator)
     }
 

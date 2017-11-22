@@ -2,12 +2,12 @@ use movements::Command;
 use super::Game;
 use super::PlayAreaSize;
 use pieces::TetrominoBuffer;
-use pieces::TetrominoStream;
+use pieces::RandomTetrominoStream;
 
 impl Game {
     pub fn default_ruleset(size: PlayAreaSize) -> Self {
         Game {
-            next_pieces: TetrominoBuffer::new(TetrominoStream::default())
+            next_pieces: TetrominoBuffer::new(RandomTetrominoStream::default())
         }
     }
 

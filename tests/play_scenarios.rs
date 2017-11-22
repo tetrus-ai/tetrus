@@ -4,7 +4,7 @@ extern crate tetrus;
 mod banana {
     use tetrus::game::Game;
     use tetrus::game::PlayAreaSize;
-    use tetrus::pieces::TetrominoStream;
+    use tetrus::pieces::RandomTetrominoStream;
     use tetrus::movements::Command::*;
 
     #[test]
@@ -17,7 +17,7 @@ mod banana {
 
         game.issue_command(DropToBottom);
 
-        // TODO: assert that the queue has been updated
+        assert_ne!(next_pieces, game.next_pieces);
 
         game.issue_command(MoveToRightEdge);
         game.issue_command(DropToBottom);

@@ -1,14 +1,16 @@
 use rand::{StdRng, Rng};
 use super::shape::*;
 use super::Shape;
-use super::TetrominoStream;
+use super::{RandomTetrominoStream, TetrominoStream};
 
-impl TetrominoStream {
+impl RandomTetrominoStream {
     pub fn new(rng: StdRng) -> Self {
-        TetrominoStream { rng }
+        RandomTetrominoStream { rng }
     }
+}
 
-    pub fn next(&self) -> (TetrominoStream, Option<Shape>) {
+impl TetrominoStream for RandomTetrominoStream{
+    fn next(&self) -> (RandomTetrominoStream, Option<Shape>) {
         let mut rng = self.rng;
         let random = rng.gen_range(0, 7);
         let tetromino = match random {
@@ -21,13 +23,13 @@ impl TetrominoStream {
             6 => Some(T),
             _ => panic!("must always provide a tetromino"),
         };
-        (TetrominoStream::new(self.rng), tetromino)
+        (RandomTetrominoStream::new(self.rng), tetromino)
     }
 }
 
-impl Default for TetrominoStream {
+impl Default for RandomTetrominoStream {
     fn default() -> Self {
-        TetrominoStream { rng: StdRng::new().unwrap() }
+        RandomTetrominoStream { rng: StdRng::new().unwrap() }
     }
 }
 
@@ -40,7 +42,7 @@ mod should {
     #[test]
     fn return_a_tetromino() {
         let rng = StdRng::from_seed(&[1]);
-        let generator = TetrominoStream::new(rng);
+        let generator = RandomTetrominoStream::new(rng);
         let (_generator, tetromino) = generator.next();
 
         assert_eq!(tetromino.unwrap(), O)
@@ -48,7 +50,7 @@ mod should {
 
     #[test]
     fn never_return_none() {
-        let generator = TetrominoStream::default();
+        let generator = RandomTetrominoStream::default();
         for _ in 0..1000 {
             let (_generator, tetromino) = generator.next();
             assert_ne!(tetromino, None);

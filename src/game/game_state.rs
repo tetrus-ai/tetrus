@@ -1,4 +1,4 @@
-use pieces::{PlacedPiece, TetrominoStream};
+use pieces::{PlacedPiece, TetrominoStream, RandomTetrominoStream};
 use movements::{PieceKeeper, Command};
 use pieces::{TetrominoBuffer, Position};
 use super::GameState;
@@ -17,7 +17,7 @@ pub const BOUNDARY_BOTTOM: i8 = 20;
 pub const MOVE_SPEED: i8 = 1;
 
 impl GameState {
-    pub fn new(stream: TetrominoStream) -> GameState {
+    pub fn new(stream: RandomTetrominoStream) -> GameState {
         let (stream, shape) = stream.next();
         let initial_piece = PlacedPiece::at_origin_with_shape(shape.unwrap());
         let next_pieces = TetrominoBuffer::new(stream);
@@ -43,11 +43,11 @@ impl GameState {
 #[cfg(test)]
 mod new_game_should {
     use super::GameState;
-    use pieces::TetrominoStream;
+    use pieces::RandomTetrominoStream;
 
     #[test]
     fn have_a_score_of_zero() {
-        let generator = TetrominoStream::default();
+        let generator = RandomTetrominoStream::default();
         let game = GameState::new(generator);
         assert_eq!(game.score, 0);
     }
@@ -56,12 +56,12 @@ mod new_game_should {
 #[cfg(test)]
 mod started_game_should {
     use super::*;
-    use pieces::{Position, TetrominoStream};
+    use pieces::{Position, RandomTetrominoStream};
     use rand::{StdRng, SeedableRng};
 
     #[test]
     fn have_a_tetromino_in_play() {
-        let generator = TetrominoStream::new(StdRng::from_seed(&[1]));
+        let generator = RandomTetrominoStream::new(StdRng::from_seed(&[1]));
         let game = GameState::new(generator);
         assert_eq!(
             game.current_piece.position,
@@ -76,7 +76,7 @@ mod should {
 
     #[test]
     fn move_current_to_the_left_when_issued_a_move_left_command() {
-        let generator = TetrominoStream::default();
+        let generator = RandomTetrominoStream::default();
         let game = GameState::new(generator);
         let left_command = Command::MoveLeft;
 
@@ -90,7 +90,7 @@ mod should {
 
     #[test]
     fn move_current_to_the_right_when_issued_a_move_right_command() {
-        let generator = TetrominoStream::default();
+        let generator = RandomTetrominoStream::default();
         let game = GameState::new(generator);
         let right_command = Command::MoveRight;
 
