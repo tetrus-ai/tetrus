@@ -1,5 +1,5 @@
 use pieces::{PlacedPiece, TetrominoStream, RandomTetrominoStream};
-use movements::{PieceKeeper, Command};
+use movements::{PieceKeeper, Command, MotionController};
 use pieces::{RandomTetrominoBuffer, Position};
 use super::GameState;
 
@@ -30,7 +30,7 @@ impl GameState {
     }
 
     pub fn issue_command(&self, command: Command) -> GameState {
-        let moved_piece = self.piece_keeper.execute(command, self.current_piece);
+        let moved_piece = self.piece_keeper.move_piece(command, self.current_piece);
         GameState {
             score: self.score,
             next_pieces: self.next_pieces,

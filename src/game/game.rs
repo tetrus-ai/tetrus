@@ -42,15 +42,18 @@ mod should {
         let buffer = RandomTetrominoBuffer::new(RandomTetrominoStream::default());
         let motion_controller = FakeMotionController::default();
         let game = Game::default_ruleset(some_size, buffer, &motion_controller);
-        // mock the controller
         // see if the controller is called properly
-            lol here
+
         // did the game state change ?
     }
 
     #[derive(Default)]
     struct FakeMotionController {}
-    impl MotionController for FakeMotionController{}
+    impl MotionController for FakeMotionController{
+        fn move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece {
+            unimplemented!()
+        }
+    }
 
     fn get_buffer() -> RandomTetrominoBuffer {
         RandomTetrominoBuffer::new(RandomTetrominoStream::default())
