@@ -7,6 +7,7 @@ pub mod game;
 pub mod state;
 pub mod play_area_size;
 
+#[derive(Debug)]
 pub struct Game<'a> {
     pub next_pieces: RandomTetrominoBuffer,
     pub state: GameState,

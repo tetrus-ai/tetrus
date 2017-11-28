@@ -42,7 +42,8 @@ impl GameState {
 
 impl PartialEq for GameState{
     fn eq(&self, other: &Self) -> bool{
-        self.score == other.score 
+        true
+        && self.score == other.score 
         && self.current_piece == other.current_piece 
         && self.next_pieces == other.next_pieces 
     }

@@ -30,15 +30,31 @@ impl<'a> Game<'a> {
     }
 }
 
+impl<'a> PartialEq for Game<'a>{
+    fn eq(&self, other: &Self) -> bool{
+        self.current == other.current
+        && self.next_pieces == other.next_pieces
+        && self.state == other.state
+    }
+}
+
 #[cfg(test)]
 mod should {
     use super::*;
     use super::super::state::*;
-    use pieces::{Position, PlacedPiece};
+    use pieces::{Position, PlacedPiece, Shape};
     use pieces::shape::*;
     use movements::Command::*;
 
     use double;
+
+    impl PlacedPiece {
+        fn at_position_with_shape(position: Position, shape: Shape) -> PlacedPiece {
+            PlacedPiece {
+                position, shape
+            }
+        }
+    }
 
     #[test]
     fn initialise_with_current_as_first_from_buffer() {
@@ -54,11 +70,13 @@ mod should {
     fn move_the_piece_on_a_command() {
         let (buffer, some_size, motion_controller) = setup();
         let game = Game::default_ruleset(some_size, buffer, &motion_controller);
+        let piece = PlacedPiece::at_position_with_shape(Position::new(1,2),Z);
+        motion_controller.move_piece.return_value(piece);
 
         let new_game = game.issue_command(MoveLeft);
 
         assert!(motion_controller.move_piece.called_with((MoveLeft, game.current)));
-        assert_ne!(game.state, new_game.state)
+        assert_eq!(new_game.current, piece)
     }
 
     fn setup() -> (RandomTetrominoBuffer, PlayAreaSize, FakeMotionController) {

@@ -15,6 +15,6 @@ pub enum Command {
 #[derive(Clone, Copy, Debug, Default)]
 pub struct PieceKeeper {}
 
-pub trait MotionController {
+pub trait MotionController: ::std::fmt::Debug {
     fn move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece;
 }
