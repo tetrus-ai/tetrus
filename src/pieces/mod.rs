@@ -7,13 +7,13 @@ mod placed_piece;
 
 pub mod shape;
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct PlacedPiece {
     pub shape: Shape,
     pub position: Position,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct Position {
     pub x: i8,
     pub y: i8,
@@ -24,7 +24,7 @@ pub struct RandomTetrominoStream {
     rng: StdRng,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct Shape {
     name: ShapeName
 }
@@ -40,7 +40,7 @@ pub trait TetrominoStream: Copy + Clone {
     fn next(&self) -> (Self, Option<Shape>);
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 enum ShapeName {
     I,
     J,

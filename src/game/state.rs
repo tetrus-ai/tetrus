@@ -40,6 +40,14 @@ impl GameState {
     }
 }
 
+impl PartialEq for GameState{
+    fn eq(&self, other: &Self) -> bool{
+        self.score == other.score 
+        && self.current_piece == other.current_piece 
+        && self.next_pieces == other.next_pieces 
+    }
+}
+
 #[cfg(test)]
 mod new_game_should {
     use super::GameState;

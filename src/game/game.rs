@@ -10,20 +10,20 @@ use pieces::RandomTetrominoStream;
 
 impl<'a> Game<'a> {
     pub fn default_ruleset(size: PlayAreaSize, buffer: RandomTetrominoBuffer, motion_controller: &'a MotionController) -> Self {
-        let (next_pieces, current) = buffer.next();
+        let (next_pieces, current_shape) = buffer.next();
         Game {
             next_pieces,
-            current: PlacedPiece::at_origin_with_shape(current),
-            game_state: GameState::new(RandomTetrominoStream::default()),
+            current: PlacedPiece::at_origin_with_shape(current_shape),
+            state: GameState::new(RandomTetrominoStream::default()),
             motion_controller
         }
     }
 
     pub fn issue_command(&self, command: Command) -> Game {
-        let current = self.motion_controller.move_piece(command, self.current);
+        let current = self.motion_controller.move_piece(command, PlacedPiece::at_origin_with_shape(self.current.shape));
         Game {
             next_pieces: self.next_pieces,
-            game_state: self.game_state,
+            state: self.state,
             motion_controller: self.motion_controller,
             current,
         }
@@ -33,8 +33,12 @@ impl<'a> Game<'a> {
 #[cfg(test)]
 mod should {
     use super::*;
-    use super::super::game_state::*;
-    use pieces::Position;
+    use super::super::state::*;
+    use pieces::{Position, PlacedPiece};
+    use pieces::shape::*;
+    use movements::Command::*;
+
+    use double;
 
     #[test]
     fn initialise_with_current_as_first_from_buffer() {
@@ -50,18 +54,11 @@ mod should {
     fn move_the_piece_on_a_command() {
         let (buffer, some_size, motion_controller) = setup();
         let game = Game::default_ruleset(some_size, buffer, &motion_controller);
-        // see if the controller is called properly
 
-        // did the game state change ?
-    }
+        let new_game = game.issue_command(MoveLeft);
 
-    #[derive(Default)]
-    struct FakeMotionController {}
-
-    impl MotionController for FakeMotionController {
-        fn move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece {
-            piece
-        }
+        assert!(motion_controller.move_piece.called_with((MoveLeft, game.current)));
+        assert_ne!(game.state, new_game.state)
     }
 
     fn setup() -> (RandomTetrominoBuffer, PlayAreaSize, FakeMotionController) {
@@ -78,5 +75,19 @@ mod should {
 
     fn get_motion_controller() -> FakeMotionController {
         FakeMotionController::default()
+    }
+
+    mock_trait!(
+        FakeMotionController,
+        move_piece(Command, PlacedPiece) -> PlacedPiece);
+
+    impl MotionController for FakeMotionController{
+        mock_method!(move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece);
+    }
+
+    impl Default for PlacedPiece{
+        fn default() -> Self{
+            PlacedPiece::at_origin_with_shape(I)
+        }
     }
 }

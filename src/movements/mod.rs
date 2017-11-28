@@ -2,7 +2,7 @@ use pieces::PlacedPiece;
 
 mod piece_keeper;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub enum Command {
     MoveLeft,
     MoveToLeftEdge,
@@ -12,7 +12,7 @@ pub enum Command {
     DropToBottom,
 }
 
-#[derive(Clone, Copy, Default)]
+#[derive(Clone, Copy, Debug, Default)]
 pub struct PieceKeeper {}
 
 pub trait MotionController {

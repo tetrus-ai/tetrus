@@ -5,3 +5,4 @@ authors = ["Dan Cohen <dan.cohen@codurance.com>"]
 
 [dependencies]
 rand = "0.3.18"
+double = "0.1.4"

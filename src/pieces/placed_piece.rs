@@ -1,6 +1,6 @@
 use super::PlacedPiece;
 use super::Shape;
-use game::game_state::{ORIGIN, MOVE_SPEED};
+use game::state::{ORIGIN, MOVE_SPEED};
 
 impl PlacedPiece {
     pub const fn at_origin_with_shape(shape: Shape) -> Self {
@@ -36,7 +36,7 @@ impl PlacedPiece {
 
 #[cfg(test)]
 mod should {
-    use game::game_state::MOVE_SPEED;
+    use game::state::MOVE_SPEED;
     use pieces::shape::I;
     use super::*;
 
