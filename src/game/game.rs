@@ -20,7 +20,7 @@ impl<'a> Game<'a> {
     }
 
     pub fn issue_command(&self, command: Command) -> Game {
-        let current = self.motion_controller.move_piece(command, PlacedPiece::at_origin_with_shape(self.current.shape));
+        let current = self.motion_controller.move_piece(command, self.current);
         Game {
             next_pieces: self.next_pieces,
             state: self.state,
@@ -69,14 +69,19 @@ mod should {
     #[test]
     fn move_the_piece_on_a_command() {
         let (buffer, some_size, motion_controller) = setup();
-        let game = Game::default_ruleset(some_size, buffer, &motion_controller);
-        let piece = PlacedPiece::at_position_with_shape(Position::new(1,2),Z);
+        let initial_game = Game::default_ruleset(some_size, buffer, &motion_controller);
+        let piece = PlacedPiece::at_position_with_shape(Position::new(-1,0),Z);
+        let final_piece = PlacedPiece::at_position_with_shape(Position::new(-2,0),Z);
         motion_controller.move_piece.return_value(piece);
+        motion_controller.move_piece.return_value_for((MoveLeft, piece), final_piece);
 
-        let new_game = game.issue_command(MoveLeft);
+        let new_game = initial_game.issue_command(MoveLeft);
+        let final_game = new_game.issue_command(MoveLeft);
 
-        assert!(motion_controller.move_piece.called_with((MoveLeft, game.current)));
-        assert_eq!(new_game.current, piece)
+        assert!(motion_controller.move_piece.called_with((MoveLeft, initial_game.current)));
+        assert!(motion_controller.move_piece.called_with((MoveLeft, piece)));
+        assert_eq!(new_game.current, piece);
+        assert_eq!(final_game.current, final_piece);
     }
 
     fn setup() -> (RandomTetrominoBuffer, PlayAreaSize, FakeMotionController) {
