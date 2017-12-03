@@ -1,7 +1,7 @@
 extern crate tetrus;
 
 #[cfg(test)]
-mod banana {
+mod feature {
     use tetrus::game::Game;
     use tetrus::game::PlayAreaSize;
     use tetrus::pieces::RandomTetrominoStream;
