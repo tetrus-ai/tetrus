@@ -1,4 +1,4 @@
-use game::state::{BOUNDARY_LEFT, BOUNDARY_RIGHT};
+use game::state::{BOUNDARY_LEFT, BOUNDARY_RIGHT, BOUNDARY_BOTTOM};
 use super::pieces::PlacedPiece;
 
 #[derive(Debug, PartialEq)]
@@ -19,6 +19,15 @@ pub fn outside_of_left_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
 pub fn outside_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
     let (x, _) = piece.position.into();
     if x > BOUNDARY_RIGHT {
+        RuleEvaluationResult::Violated
+    } else {
+        RuleEvaluationResult::Respected
+    }
+}
+
+pub fn outside_of_bottom_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
+    let (_, y) = piece.position.into();
+    if y > BOUNDARY_BOTTOM {
         RuleEvaluationResult::Violated
     } else {
         RuleEvaluationResult::Respected
