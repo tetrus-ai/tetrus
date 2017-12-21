@@ -25,10 +25,13 @@ mod feature {
         assert_eq!(next_pieces.first, game.current.shape);
         assert_eq!(next_pieces.second, game.next_pieces.first);
 
+        let next_pieces = game.next_pieces;
+
         game.issue_command(MoveToRightEdge);
         game.issue_command(DropToBottom);
 
-        // TODO: assert that the queue has been updated
+        assert_eq!(next_pieces.first, game.current.shape);
+        assert_eq!(next_pieces.second, game.next_pieces.first);
 
         // TODO: assert the final state of the well
     }
