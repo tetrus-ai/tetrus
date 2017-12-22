@@ -1,6 +1,6 @@
 use pieces::PlacedPiece;
 
-mod piece_keeper;
+mod motion_control;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub enum Command {
@@ -12,8 +12,8 @@ pub enum Command {
     DropToBottom,
 }
 
-#[derive(Clone, Copy, Debug, Default)]
-pub struct PieceKeeper {}
+#[derive(Debug, Default)]
+pub struct DefaultMotionController{}
 
 pub trait MotionController: ::std::fmt::Debug {
     fn move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece;

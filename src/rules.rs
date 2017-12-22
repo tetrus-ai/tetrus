@@ -1,4 +1,4 @@
-use game::state::{BOUNDARY_LEFT, BOUNDARY_RIGHT, BOUNDARY_BOTTOM};
+use pieces::{BOUNDARY_LEFT, BOUNDARY_RIGHT, BOUNDARY_BOTTOM};
 use super::pieces::PlacedPiece;
 
 #[derive(Debug, PartialEq)]
@@ -7,7 +7,7 @@ pub enum RuleEvaluationResult {
     Respected,
 }
 
-pub fn outside_of_left_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
+pub fn right_of_left_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
     let (x, _) = piece.position.into();
     if x < BOUNDARY_LEFT {
         RuleEvaluationResult::Violated
@@ -16,7 +16,7 @@ pub fn outside_of_left_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
     }
 }
 
-pub fn outside_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
+pub fn left_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
     let (x, _) = piece.position.into();
     if x > BOUNDARY_RIGHT {
         RuleEvaluationResult::Violated
@@ -25,49 +25,11 @@ pub fn outside_of_right_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
     }
 }
 
-pub fn outside_of_bottom_boundary(&piece: &PlacedPiece) -> RuleEvaluationResult {
+pub fn above_bottom(&piece: &PlacedPiece) -> RuleEvaluationResult {
     let (_, y) = piece.position.into();
     if y > BOUNDARY_BOTTOM {
         RuleEvaluationResult::Violated
     } else {
         RuleEvaluationResult::Respected
-    }
-}
-
-#[cfg(test)]
-mod should {
-    use game::state::*;
-    use pieces::shape::I;
-    use super::*;
-
-    const SOME_PIECE: PlacedPiece = PlacedPiece::at_origin_with_shape(I);
-
-    #[test]
-    fn allow_piece_to_move_to_boundary() {
-        let piece = move_to_left_boundary(SOME_PIECE);
-
-        assert_eq!(
-            RuleEvaluationResult::Respected,
-            outside_of_left_boundary(&piece)
-        );
-    }
-
-    #[test]
-    fn not_allow_piece_to_move_beyond_boundary() {
-        let piece = move_to_left_boundary(SOME_PIECE);
-
-        let piece = piece.move_left();
-
-        assert_eq!(
-            RuleEvaluationResult::Violated,
-            outside_of_left_boundary(&piece)
-        );
-    }
-
-    fn move_to_left_boundary(piece: PlacedPiece) -> PlacedPiece {
-        match piece.position.x {
-            BOUNDARY_LEFT => piece,
-            _ => move_to_left_boundary(piece.move_left()),
-        }
     }
 }

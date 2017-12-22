@@ -2,19 +2,16 @@ use movements::Command;
 use movements::MotionController;
 use super::Game;
 use super::PlayAreaSize;
-use super::GameState;
-use pieces::RandomTetrominoBuffer;
+use pieces::RandomTetrominoServer;
 use pieces::PlacedPiece;
-use pieces::RandomTetrominoStream;
 
 
 impl<'a> Game<'a> {
-    pub fn default_ruleset(size: PlayAreaSize, buffer: RandomTetrominoBuffer, motion_controller: &'a MotionController) -> Self {
+    pub fn default_ruleset(size: PlayAreaSize, buffer: RandomTetrominoServer, motion_controller: &'a MotionController) -> Self {
         let (next_pieces, current_shape) = buffer.next();
         Game {
             next_pieces,
             current: PlacedPiece::at_origin_with_shape(current_shape),
-            state: GameState::new(RandomTetrominoStream::default()),
             motion_controller
         }
     }
@@ -23,27 +20,25 @@ impl<'a> Game<'a> {
         let current = self.motion_controller.move_piece(command, self.current);
         Game {
             next_pieces: self.next_pieces,
-            state: self.state,
-            motion_controller: self.motion_controller,
             current,
+            motion_controller: self.motion_controller
         }
     }
 }
 
-impl<'a> PartialEq for Game<'a>{
+impl<'a> PartialEq for Game<'a> {
     fn eq(&self, other: &Self) -> bool{
         self.current == other.current
         && self.next_pieces == other.next_pieces
-        && self.state == other.state
     }
 }
 
 #[cfg(test)]
 mod should {
     use super::*;
-    use super::super::state::*;
     use pieces::{Position, PlacedPiece, Shape};
     use pieces::shape::*;
+    use pieces::*;
     use movements::Command::*;
 
     use double;
@@ -84,12 +79,12 @@ mod should {
         assert_eq!(final_game.current, final_piece);
     }
 
-    fn setup() -> (RandomTetrominoBuffer, PlayAreaSize, FakeMotionController) {
+    fn setup() -> (RandomTetrominoServer, PlayAreaSize, FakeMotionController) {
         (get_buffer(), get_play_area_size(), get_motion_controller())
     }
 
-    fn get_buffer() -> RandomTetrominoBuffer {
-        RandomTetrominoBuffer::new(RandomTetrominoStream::default())
+    fn get_buffer() -> RandomTetrominoServer {
+        RandomTetrominoServer::new(RandomTetrominoStream::default())
     }
 
     fn get_play_area_size() -> PlayAreaSize {

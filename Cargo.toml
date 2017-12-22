@@ -1,7 +1,7 @@
 [package]
 name = "tetrus"
 version = "0.1.0"
-authors = ["Dan Cohen <dan.cohen@codurance.com>"]
+authors = ["Dan Cohen <dan.cohen@codurance.com>", "Cyryl Płotnicki <cyplo@cyplo.net>"]
 
 [dependencies]
 rand = "0.3.18"

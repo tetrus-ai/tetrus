@@ -1,66 +1,56 @@
 use super::Command;
-use super::PieceKeeper;
 use super::MotionController;
+use super::DefaultMotionController;
+
 use rules::*;
 use pieces::PlacedPiece;
+use pieces::*;
 
-impl PieceKeeper {
-    fn check_rules(piece_to_verify: &PlacedPiece) -> bool {
-        let mut is_allowed = true;
-        is_allowed &= respects_rule(&outside_of_left_boundary, piece_to_verify);
-        is_allowed &= respects_rule(&outside_of_right_boundary, piece_to_verify);
-        is_allowed &= respects_rule(&outside_of_bottom_boundary, piece_to_verify);
-        is_allowed
-    }
-
-    fn get_unverified_piece(command: Command, original_piece: PlacedPiece) -> PlacedPiece {
-        match command {
-            Command::MoveLeft => original_piece.move_left(),
-            Command::MoveToLeftEdge => original_piece.move_left(),
-            Command::MoveRight => original_piece.move_right(),
-            Command::MoveToRightEdge => original_piece.move_right(),
-            Command::Drop => original_piece.drop_by_one(),
-            Command::DropToBottom => original_piece.drop_by_one(),
-            _ => panic!(),
-        }
-    }
+fn at_left_edge(piece: PlacedPiece) -> bool {
+    piece.position.x == BOUNDARY_LEFT
 }
 
-impl MotionController for PieceKeeper {
-    fn move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece {
-        let unverified_piece = PieceKeeper::get_unverified_piece(command, piece);
-        let is_allowed = PieceKeeper::check_rules(&unverified_piece);
-        if is_allowed {
+fn at_right_edge(piece: PlacedPiece) -> bool {
+    piece.position.x == BOUNDARY_RIGHT
+}
+
+fn at_bottom(piece: PlacedPiece) -> bool {
+    piece.position.y == BOUNDARY_BOTTOM
+}
+
+impl MotionController for DefaultMotionController {
+    fn move_piece(&self, command: Command, piece_to_move: PlacedPiece) -> PlacedPiece {
+        if at_bottom(piece_to_move){ piece_to_move }
+        else {
             match command {
-                Command::MoveToLeftEdge => self.move_piece(command, unverified_piece),
-                Command::MoveToRightEdge => self.move_piece(command, unverified_piece),
-                Command::DropToBottom => self.move_piece(command, unverified_piece),
-                _ => unverified_piece
+                Command::MoveLeft => piece_to_move.move_left(&right_of_left_boundary),
+                Command::MoveToLeftEdge => match at_left_edge(piece_to_move) {
+                    false => self.move_piece(Command::MoveToLeftEdge, piece_to_move.move_left(&right_of_left_boundary)),
+                    true => piece_to_move
+                }
+                Command::MoveRight => piece_to_move.move_right(&left_of_right_boundary),
+                Command::MoveToRightEdge => match at_right_edge(piece_to_move) {
+                    false => self.move_piece(Command::MoveToRightEdge, piece_to_move.move_right(&left_of_right_boundary)),
+                    true => piece_to_move
+                }
+                Command::Drop => piece_to_move.drop_by_one(&above_bottom),
+                Command::DropToBottom => self.move_piece(Command::DropToBottom, piece_to_move.drop_by_one(&above_bottom)),
             }
-        } else {
-            piece
         }
-    }
-}
-
-fn respects_rule(rule: &Fn(&PlacedPiece) -> RuleEvaluationResult, piece: &PlacedPiece) -> bool {
-    match rule(piece) {
-        RuleEvaluationResult::Respected => true,
-        RuleEvaluationResult::Violated => false,
     }
 }
 
 #[cfg(test)]
 mod should {
-    use game::state::*;
     use pieces::shape::I;
     use pieces::Position;
+    use pieces::*;
     use super::*;
 
     #[test]
     fn execute_a_legal_move() {
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = PieceKeeper::default();
+        let piece_keeper = DefaultMotionController::default();
 
         let piece = piece_keeper.move_piece(Command::MoveLeft, piece);
 
@@ -70,7 +60,8 @@ mod should {
     #[test]
     fn move_current_to_the_left_when_issued_a_move_left_command() {
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = PieceKeeper::default();
+
+        let piece_keeper = DefaultMotionController::default();
 
         let piece = piece_keeper.move_piece(Command::MoveLeft, piece);
 
@@ -83,7 +74,7 @@ mod should {
     #[test]
     fn move_current_to_the_right_when_issued_a_move_right_command() {
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = PieceKeeper::default();
+        let piece_keeper = DefaultMotionController::default();
 
         let piece = piece_keeper.move_piece(Command::MoveRight, piece);
 
@@ -96,7 +87,7 @@ mod should {
     #[test]
     fn move_current_to_left_edge_when_issued_a_move_to_left_edge_command() { 
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = PieceKeeper::default();
+        let piece_keeper = DefaultMotionController::default();
 
         let piece = piece_keeper.move_piece(Command::MoveToLeftEdge, piece);
 
@@ -108,7 +99,7 @@ mod should {
     #[test]
     fn move_current_to_right_edge_when_issued_a_move_to_right_edge_command() { 
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = PieceKeeper::default();
+        let piece_keeper = DefaultMotionController::default();
 
         let piece = piece_keeper.move_piece(Command::MoveToRightEdge, piece);
 
@@ -120,7 +111,7 @@ mod should {
     #[test]
     fn move_current_to_bottom_when_issued_a_drop_to_bottom_command() { 
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = PieceKeeper::default();
+        let piece_keeper = DefaultMotionController::default();
 
         let piece = piece_keeper.move_piece(Command::DropToBottom, piece);
 

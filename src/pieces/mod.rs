@@ -7,6 +7,20 @@ mod placed_piece;
 
 pub mod shape;
 
+pub const ORIGIN: Position = Position {
+    x: ORIGIN_X,
+    y: ORIGIN_Y,
+};
+
+pub const ORIGIN_X: i8 = 0;
+pub const ORIGIN_Y: i8 = 0;
+
+pub const BOUNDARY_LEFT: i8 = -4;
+pub const BOUNDARY_RIGHT: i8 = 4;
+pub const BOUNDARY_BOTTOM: i8 = 20;
+
+pub const MOVE_SPEED: i8 = 1;
+
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct PlacedPiece {
     pub shape: Shape,
@@ -30,7 +44,7 @@ pub struct Shape {
 }
 
 #[derive(Clone, Copy, Debug)]
-pub struct RandomTetrominoBuffer {
+pub struct RandomTetrominoServer {
     pub first: Shape,
     pub second: Shape,
     stream: RandomTetrominoStream
