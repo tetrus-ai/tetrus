@@ -11,30 +11,26 @@ impl PlacedPiece {
         }
     }
 
-    fn with_new_position_respecting_rule(&self, position: Position, respecting_rule: &Fn(&PlacedPiece) -> RuleEvaluationResult) -> Self {
-        let new_piece = PlacedPiece {
+    fn with_new_position(&self, position: Position) -> Self {
+        PlacedPiece {
             shape: self.shape,
             position,
-        };
-        match respecting_rule(&new_piece) {
-            RuleEvaluationResult::Respected => new_piece,
-            RuleEvaluationResult::Violated => *self
         }
     }
 
-    pub fn drop_by_one(&self, respecting_rule: &Fn(&PlacedPiece) -> RuleEvaluationResult) -> Self {
+    pub fn drop_by_one(&self) -> Self {
         let position = self.position.add_to_y(MOVE_SPEED);
-        self.with_new_position_respecting_rule(position, respecting_rule)
+        self.with_new_position(position)
     }
 
-    pub fn move_left(&self, respecting_rule: &Fn(&PlacedPiece) -> RuleEvaluationResult) -> Self {
+    pub fn move_left(&self) -> Self {
         let position = self.position.subtract_from_x(MOVE_SPEED);
-        self.with_new_position_respecting_rule(position, respecting_rule)
+        self.with_new_position(position)
     }
 
-    pub fn move_right(&self, respecting_rule: &Fn(&PlacedPiece) -> RuleEvaluationResult) -> Self {
+    pub fn move_right(&self) -> Self {
         let position = self.position.add_to_x(MOVE_SPEED);
-        self.with_new_position_respecting_rule(position, respecting_rule)
+        self.with_new_position(position)
     }
 }
 
@@ -50,7 +46,7 @@ mod should {
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x - MOVE_SPEED;
-        let current = current.move_left(&always_allow_move);
+        let current = current.move_left();
 
         assert_eq!(current.position.x, expected_x);
         assert_eq!(current.position.y, initial_y);
@@ -62,13 +58,9 @@ mod should {
         let initial_x = current.position.x;
         let initial_y = current.position.y;
         let expected_x = initial_x + MOVE_SPEED;
-        let current = current.move_right(&always_allow_move);
+        let current = current.move_right();
 
         assert_eq!(current.position.x, expected_x);
         assert_eq!(current.position.y, initial_y);
-    }
-
-    fn always_allow_move(&piece: &PlacedPiece) -> RuleEvaluationResult {
-        RuleEvaluationResult::Respected
     }
 }

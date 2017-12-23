@@ -6,36 +6,51 @@ use rules::*;
 use pieces::PlacedPiece;
 use pieces::*;
 
-fn at_left_edge(piece: PlacedPiece) -> bool {
-    piece.position.x == BOUNDARY_LEFT
-}
-
-fn at_right_edge(piece: PlacedPiece) -> bool {
-    piece.position.x == BOUNDARY_RIGHT
-}
-
-fn at_bottom(piece: PlacedPiece) -> bool {
-    piece.position.y == BOUNDARY_BOTTOM
-}
-
 impl MotionController for DefaultMotionController {
     fn move_piece(&self, command: Command, piece_to_move: PlacedPiece) -> PlacedPiece {
-        if at_bottom(piece_to_move){ piece_to_move }
-        else {
-            match command {
-                Command::MoveLeft => piece_to_move.move_left(&right_of_left_boundary),
-                Command::MoveToLeftEdge => match at_left_edge(piece_to_move) {
-                    false => self.move_piece(Command::MoveToLeftEdge, piece_to_move.move_left(&right_of_left_boundary)),
-                    true => piece_to_move
+        match command {
+            Command::MoveLeft => {
+                let new_piece = piece_to_move.move_left();
+                match right_of_left_boundary(&new_piece) {
+                    RuleEvaluationResult::Respected => new_piece,
+                    RuleEvaluationResult::Violated => piece_to_move
                 }
-                Command::MoveRight => piece_to_move.move_right(&left_of_right_boundary),
-                Command::MoveToRightEdge => match at_right_edge(piece_to_move) {
-                    false => self.move_piece(Command::MoveToRightEdge, piece_to_move.move_right(&left_of_right_boundary)),
-                    true => piece_to_move
+            },
+            Command::MoveToLeftEdge => {
+                let new_piece = piece_to_move.move_left();
+                match right_of_left_boundary(&new_piece) {
+                    RuleEvaluationResult::Respected => self.move_piece(Command::MoveToLeftEdge, new_piece.move_left()),
+                    RuleEvaluationResult::Violated => piece_to_move
                 }
-                Command::Drop => piece_to_move.drop_by_one(&above_bottom),
-                Command::DropToBottom => self.move_piece(Command::DropToBottom, piece_to_move.drop_by_one(&above_bottom)),
             }
+            Command::MoveRight => {
+                let new_piece = piece_to_move.move_right();
+                match left_of_right_boundary(&new_piece) {
+                    RuleEvaluationResult::Respected => new_piece,
+                    RuleEvaluationResult::Violated => piece_to_move
+                }
+            }
+            Command::MoveToRightEdge => {
+                let new_piece = piece_to_move.move_right();
+                match left_of_right_boundary(&new_piece) {
+                    RuleEvaluationResult::Respected => self.move_piece(Command::MoveToRightEdge, piece_to_move.move_right()),
+                    RuleEvaluationResult::Violated => piece_to_move
+                }
+            }
+            Command::Drop => {
+                let new_piece = piece_to_move.drop_by_one();
+                match above_bottom(&new_piece) {
+                    RuleEvaluationResult::Respected => new_piece,
+                    RuleEvaluationResult::Violated => piece_to_move
+                }
+            }
+            Command::DropToBottom => {
+                let new_piece = piece_to_move.drop_by_one();
+                match above_bottom(&new_piece) {
+                    RuleEvaluationResult::Respected => self.move_piece(Command::DropToBottom, piece_to_move.drop_by_one()),
+                    RuleEvaluationResult::Violated => piece_to_move
+                }
+            },
         }
     }
 }
