@@ -6,5 +6,4 @@ pub mod pieces;
 pub mod rules;
 
 extern crate rand;
-#[macro_use]
 extern crate double;

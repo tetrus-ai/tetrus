@@ -1,6 +1,5 @@
 use super::PlacedPiece;
 use super::Shape;
-use ::rules::*;
 use super::*;
 
 impl PlacedPiece {

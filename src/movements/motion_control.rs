@@ -4,7 +4,6 @@ use super::DefaultMotionController;
 
 use rules::*;
 use pieces::PlacedPiece;
-use pieces::*;
 
 impl DefaultMotionController {
     fn move_respecting_rule(piece_to_move: PlacedPiece, move_to_apply: &Fn(&PlacedPiece) -> PlacedPiece, rule: &Fn(&PlacedPiece) -> RuleEvaluationResult ) -> PlacedPiece{
@@ -43,16 +42,6 @@ mod should {
     use pieces::Position;
     use pieces::*;
     use super::*;
-
-    #[test]
-    fn execute_a_legal_move() {
-        let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = DefaultMotionController::default();
-
-        let piece = piece_keeper.move_piece(Command::MoveLeft, piece);
-
-        assert_eq!(piece.position.x, ORIGIN_X - 1);
-    }
 
     #[test]
     fn move_current_to_the_left_when_issued_a_move_left_command() {
