@@ -5,4 +5,6 @@ authors = ["Dan Cohen <dan.cohen@codurance.com>", "Cyryl Płotnicki <cyplo@cyplo
 
 [dependencies]
 rand = "0.3.18"
+
+[dev-dependencies]
 double = "0.1.4"
