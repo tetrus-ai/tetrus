@@ -15,10 +15,6 @@ pub const ORIGIN: Position = Position {
 pub const ORIGIN_X: i8 = 0;
 pub const ORIGIN_Y: i8 = 0;
 
-pub const BOUNDARY_LEFT: i8 = -4;
-pub const BOUNDARY_RIGHT: i8 = 4;
-pub const BOUNDARY_BOTTOM: i8 = 20;
-
 pub const MOVE_SPEED: i8 = 1;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
