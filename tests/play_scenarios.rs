@@ -8,13 +8,15 @@ mod feature {
     use tetrus::pieces::RandomTetrominoServer;
     use tetrus::movements::Command::*;
     use tetrus::movements::DefaultMotionController;
+    use tetrus::rules::RuleSet;
 
     #[test]
     fn stacking_two_pieces() {
         let buffer = RandomTetrominoServer::new(RandomTetrominoStream::default());
         let narrow_play_area = PlayAreaSize::with_width_and_height(3, 6);
-        let motion_controller = DefaultMotionController::default();
-        let game = Game::default_ruleset(narrow_play_area, buffer, &motion_controller);
+        let ruleset = RuleSet::with_play_area_size(narrow_play_area);
+        let motion_controller = DefaultMotionController::new(ruleset);
+        let game = Game::default_ruleset(buffer, &motion_controller);
 
         let next_pieces = game.next_pieces;
 

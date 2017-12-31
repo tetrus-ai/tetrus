@@ -1,4 +1,5 @@
 use pieces::PlacedPiece;
+use rules::RuleSet;
 
 mod motion_control;
 
@@ -12,8 +13,10 @@ pub enum Command {
     DropToBottom,
 }
 
-#[derive(Debug, Default)]
-pub struct DefaultMotionController{}
+#[derive(Debug)]
+pub struct DefaultMotionController {
+    ruleset: RuleSet,
+}
 
 pub trait MotionController: ::std::fmt::Debug {
     fn move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece;
