@@ -7,24 +7,30 @@ use pieces::PlacedPiece;
 
 impl DefaultMotionController {
 
-    fn new(ruleset: RuleSet) -> Self {
+    pub fn new(ruleset: RuleSet) -> Self {
         DefaultMotionController{
             ruleset
         }
     }
 
-    fn move_respecting_rule(piece_to_move: PlacedPiece, move_to_apply: &Fn(&PlacedPiece) -> PlacedPiece, rule: &Fn(&PlacedPiece) -> RuleEvaluationResult ) -> PlacedPiece{
+    fn move_respecting_rule(&self,
+                            piece_to_move: PlacedPiece,
+                            move_to_apply: &Fn(&PlacedPiece) -> PlacedPiece,
+                            rule: &Fn(&RuleSet, &PlacedPiece) -> RuleEvaluationResult ) -> PlacedPiece{
         let new_piece = move_to_apply(&piece_to_move);
-        match rule(&new_piece) {
+        match rule(&self.ruleset, &new_piece) {
             RuleEvaluationResult::Respected => new_piece,
             RuleEvaluationResult::Violated => piece_to_move
         }
     }
 
-    fn keep_moving_until_rule_no_longer_respected(piece_to_move: PlacedPiece, move_to_apply: &Fn(&PlacedPiece) -> PlacedPiece, rule: &Fn(&PlacedPiece) -> RuleEvaluationResult) -> PlacedPiece {
+    fn keep_moving_until_rule_no_longer_respected(&self,
+                                                  piece_to_move: PlacedPiece,
+                                                  move_to_apply: &Fn(&PlacedPiece) -> PlacedPiece,
+                                                  rule: &Fn(&RuleSet, &PlacedPiece) -> RuleEvaluationResult) -> PlacedPiece {
         let new_piece = move_to_apply(&piece_to_move);
-        match rule(&new_piece) {
-            RuleEvaluationResult::Respected => DefaultMotionController::keep_moving_until_rule_no_longer_respected(new_piece, move_to_apply, rule),
+        match rule(&self.ruleset, &new_piece) {
+            RuleEvaluationResult::Respected => self.keep_moving_until_rule_no_longer_respected(new_piece, move_to_apply, rule),
             RuleEvaluationResult::Violated => piece_to_move
         }
     }
@@ -33,12 +39,24 @@ impl DefaultMotionController {
 impl MotionController for DefaultMotionController {
     fn move_piece(&self, command: Command, piece_to_move: PlacedPiece) -> PlacedPiece {
         match command {
-            Command::MoveLeft => DefaultMotionController::move_respecting_rule(piece_to_move, &PlacedPiece::move_left, &right_of_left_boundary),
-            Command::MoveToLeftEdge => DefaultMotionController::keep_moving_until_rule_no_longer_respected(piece_to_move, &PlacedPiece::move_left, &right_of_left_boundary),
-            Command::MoveRight => DefaultMotionController::move_respecting_rule(piece_to_move, &PlacedPiece::move_right, &left_of_right_boundary),
-            Command::MoveToRightEdge => DefaultMotionController::keep_moving_until_rule_no_longer_respected(piece_to_move, &PlacedPiece::move_right, &left_of_right_boundary),
-            Command::Drop => DefaultMotionController::move_respecting_rule(piece_to_move, &PlacedPiece::drop_by_one, &above_bottom),
-            Command::DropToBottom => DefaultMotionController::keep_moving_until_rule_no_longer_respected(piece_to_move, &PlacedPiece::drop_by_one, &above_bottom)
+            Command::MoveLeft => self.move_respecting_rule(piece_to_move,
+                                                                               &PlacedPiece::move_left,
+                                                                               &RuleSet::right_of_left_boundary),
+            Command::MoveToLeftEdge => self.keep_moving_until_rule_no_longer_respected(piece_to_move,
+                                                                                                           &PlacedPiece::move_left,
+                                                                                                           &RuleSet::right_of_left_boundary),
+            Command::MoveRight => self.move_respecting_rule(piece_to_move,
+                                                                                &PlacedPiece::move_right,
+                                                                                &RuleSet::left_of_right_boundary),
+            Command::MoveToRightEdge => self.keep_moving_until_rule_no_longer_respected(piece_to_move,
+                                                                                                            &PlacedPiece::move_right,
+                                                                                                            &RuleSet::left_of_right_boundary),
+            Command::Drop => self.move_respecting_rule(piece_to_move,
+                                                                           &PlacedPiece::drop_by_one,
+                                                                           &RuleSet::above_bottom),
+            Command::DropToBottom => self.keep_moving_until_rule_no_longer_respected(piece_to_move,
+                                                                                                         &PlacedPiece::drop_by_one,
+                                                                                                         &RuleSet::above_bottom)
         }
     }
 }
@@ -54,7 +72,7 @@ mod should {
     fn move_current_to_the_left_when_issued_a_move_left_command() {
         let piece = PlacedPiece::at_origin_with_shape(I);
 
-        let piece_keeper = DefaultMotionController::default();
+        let piece_keeper = DefaultMotionController::new(RuleSet::default());
 
         let piece = piece_keeper.move_piece(Command::MoveLeft, piece);
 
@@ -67,7 +85,8 @@ mod should {
     #[test]
     fn move_current_to_the_right_when_issued_a_move_right_command() {
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = DefaultMotionController::default();
+        let ruleset = RuleSet::default();
+        let piece_keeper = DefaultMotionController::new(ruleset);
 
         let piece = piece_keeper.move_piece(Command::MoveRight, piece);
 
@@ -80,25 +99,27 @@ mod should {
     #[test]
     fn move_current_to_left_edge_when_issued_a_move_to_left_edge_command() { 
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = DefaultMotionController::default();
+        let ruleset = RuleSet::default();
+        let piece_keeper = DefaultMotionController::new(ruleset);
 
         let piece = piece_keeper.move_piece(Command::MoveToLeftEdge, piece);
 
         assert_eq!(
             piece.position,
-            Position::new(BOUNDARY_LEFT, ORIGIN_Y))
+            Position::new(ruleset.boundary_left, ORIGIN_Y))
     }
 
     #[test]
     fn move_current_to_right_edge_when_issued_a_move_to_right_edge_command() { 
         let piece = PlacedPiece::at_origin_with_shape(I);
-        let piece_keeper = DefaultMotionController::default();
+        let ruleset = RuleSet::default();
+        let piece_keeper = DefaultMotionController::new(ruleset);
 
         let piece = piece_keeper.move_piece(Command::MoveToRightEdge, piece);
 
         assert_eq!(
             piece.position,
-            Position::new(BOUNDARY_RIGHT, ORIGIN_Y))
+            Position::new(ruleset.boundary_right, ORIGIN_Y))
     }
 
     #[test]
@@ -111,6 +132,6 @@ mod should {
 
         assert_eq!(
             piece.position,
-            Position::new(ORIGIN_X, ruleset.play_area_size.height))
+            Position::new(ORIGIN_X, ruleset.play_area_size.height as i8))
     }
 }

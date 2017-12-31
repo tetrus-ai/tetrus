@@ -19,7 +19,8 @@ pub struct GameState {
     pub current_piece: PlacedPiece,
 }
 
+#[derive(Clone, Copy, Debug)]
 pub struct PlayAreaSize {
-    width: u8,
-    height: u8,
+    pub width: u8,
+    pub height: u8,
 }
