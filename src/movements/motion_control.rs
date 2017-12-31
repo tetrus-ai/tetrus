@@ -100,13 +100,14 @@ mod should {
     fn move_current_to_left_edge_when_issued_a_move_to_left_edge_command() { 
         let piece = PlacedPiece::at_origin_with_shape(I);
         let ruleset = RuleSet::default();
+
         let piece_keeper = DefaultMotionController::new(ruleset);
 
         let piece = piece_keeper.move_piece(Command::MoveToLeftEdge, piece);
 
         assert_eq!(
             piece.position,
-            Position::new(ruleset.boundary_left+1, ORIGIN_Y))
+            Position::new(ruleset.boundary_left, ORIGIN_Y))
     }
 
     #[test]
@@ -119,7 +120,7 @@ mod should {
 
         assert_eq!(
             piece.position,
-            Position::new(ruleset.boundary_right-1, ORIGIN_Y))
+            Position::new(ruleset.boundary_right, ORIGIN_Y))
     }
 
     #[test]
