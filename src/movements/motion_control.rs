@@ -106,7 +106,7 @@ mod should {
 
         assert_eq!(
             piece.position,
-            Position::new(ruleset.boundary_left, ORIGIN_Y))
+            Position::new(ruleset.boundary_left+1, ORIGIN_Y))
     }
 
     #[test]
@@ -119,7 +119,7 @@ mod should {
 
         assert_eq!(
             piece.position,
-            Position::new(ruleset.boundary_right, ORIGIN_Y))
+            Position::new(ruleset.boundary_right-1, ORIGIN_Y))
     }
 
     #[test]

@@ -1,13 +1,12 @@
 use movements::Command;
 use movements::MotionController;
 use super::Game;
-use super::PlayAreaSize;
 use pieces::RandomTetrominoServer;
 use pieces::PlacedPiece;
 
 
 impl<'a> Game<'a> {
-    pub fn default_ruleset(size: PlayAreaSize, buffer: RandomTetrominoServer, motion_controller: &'a MotionController) -> Self {
+    pub fn default_ruleset(buffer: RandomTetrominoServer, motion_controller: &'a MotionController) -> Self {
         let (next_pieces, current_shape) = buffer.next();
         Game {
             next_pieces,
@@ -53,18 +52,18 @@ mod should {
 
     #[test]
     fn initialise_with_current_as_first_from_buffer() {
-        let (buffer, some_size, motion_controller) = setup();
+        let (buffer, motion_controller) = setup();
         let expected_current = buffer.first;
 
-        let game = Game::default_ruleset(some_size, buffer, &motion_controller);
+        let game = Game::default_ruleset(buffer, &motion_controller);
 
         assert_eq!(game.current.shape, expected_current);
     }
 
     #[test]
     fn move_the_piece_on_a_command() {
-        let (buffer, some_size, motion_controller) = setup();
-        let initial_game = Game::default_ruleset(some_size, buffer, &motion_controller);
+        let (buffer, motion_controller) = setup();
+        let initial_game = Game::default_ruleset(buffer, &motion_controller);
         let piece = PlacedPiece::at_position_with_shape(Position::new(-1,0),Z);
         let final_piece = PlacedPiece::at_position_with_shape(Position::new(-2,0),Z);
         motion_controller.move_piece.return_value(piece);
@@ -79,16 +78,12 @@ mod should {
         assert_eq!(final_game.current, final_piece);
     }
 
-    fn setup() -> (RandomTetrominoServer, PlayAreaSize, FakeMotionController) {
-        (get_buffer(), get_play_area_size(), get_motion_controller())
+    fn setup() -> (RandomTetrominoServer, FakeMotionController) {
+        (get_buffer(), get_motion_controller())
     }
 
     fn get_buffer() -> RandomTetrominoServer {
         RandomTetrominoServer::new(RandomTetrominoStream::default())
-    }
-
-    fn get_play_area_size() -> PlayAreaSize {
-        PlayAreaSize::with_width_and_height(0, 0)
     }
 
     fn get_motion_controller() -> FakeMotionController {
