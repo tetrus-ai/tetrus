@@ -36,14 +36,14 @@ pub struct RandomTetrominoStream {
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 pub struct Shape {
-    name: ShapeName
+    name: ShapeName,
 }
 
 #[derive(Clone, Copy, Debug)]
 pub struct RandomTetrominoServer {
     pub first: Shape,
     pub second: Shape,
-    stream: RandomTetrominoStream
+    stream: RandomTetrominoStream,
 }
 
 pub trait TetrominoStream: Copy + Clone {
@@ -58,5 +58,5 @@ enum ShapeName {
     O,
     S,
     Z,
-    T
+    T,
 }

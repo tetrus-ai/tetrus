@@ -9,7 +9,7 @@ pub mod play_area_size;
 pub struct Game<'a> {
     pub next_pieces: RandomTetrominoServer,
     pub current: PlacedPiece,
-    pub motion_controller: &'a MotionController
+    pub motion_controller: &'a MotionController,
 }
 
 #[derive(Clone, Copy, Debug)]

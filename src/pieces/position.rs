@@ -88,6 +88,5 @@ mod should {
 
         assert_eq!(position.x, expected_x);
         assert_eq!(position.y, initial_y);
-
     }
 }

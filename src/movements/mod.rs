@@ -14,8 +14,8 @@ pub enum Command {
 }
 
 #[derive(Debug)]
-pub struct DefaultMotionController{
-    ruleset: RuleSet
+pub struct DefaultMotionController {
+    ruleset: RuleSet,
 }
 
 pub trait MotionController: ::std::fmt::Debug {

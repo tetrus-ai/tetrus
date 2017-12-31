@@ -1,4 +1,4 @@
-use rand::{StdRng, Rng};
+use rand::{Rng, StdRng};
 use super::shape::*;
 use super::Shape;
 use super::{RandomTetrominoStream, TetrominoStream};
@@ -29,13 +29,15 @@ impl TetrominoStream for RandomTetrominoStream {
 
 impl Default for RandomTetrominoStream {
     fn default() -> Self {
-        RandomTetrominoStream { rng: StdRng::new().unwrap() }
+        RandomTetrominoStream {
+            rng: StdRng::new().unwrap(),
+        }
     }
 }
 
 #[cfg(test)]
 mod should {
-    use rand::{StdRng, SeedableRng};
+    use rand::{SeedableRng, StdRng};
     use pieces::shape::O;
     use super::*;
 
