@@ -38,7 +38,7 @@ impl RuleSet {
         }
     }
 
-    pub fn right_of_left_boundary(&self, &piece: &PlacedPiece) -> RuleEvaluationResult {
+    pub fn right_of_left_boundary(&self, piece: PlacedPiece) -> RuleEvaluationResult {
         let (x, _) = piece.position.into();
         if x < self.boundary_left {
             RuleEvaluationResult::Violated
@@ -47,7 +47,7 @@ impl RuleSet {
         }
     }
 
-    pub fn left_of_right_boundary(&self, &piece: &PlacedPiece) -> RuleEvaluationResult {
+    pub fn left_of_right_boundary(&self, piece: PlacedPiece) -> RuleEvaluationResult {
         let (x, _) = piece.position.into();
         if x > self.boundary_right {
             RuleEvaluationResult::Violated
@@ -56,7 +56,7 @@ impl RuleSet {
         }
     }
 
-    pub fn above_bottom(&self, &piece: &PlacedPiece) -> RuleEvaluationResult {
+    pub fn above_bottom(&self, piece: PlacedPiece) -> RuleEvaluationResult {
         let (_, y) = piece.position.into();
         if y > self.boundary_bottom {
             RuleEvaluationResult::Violated

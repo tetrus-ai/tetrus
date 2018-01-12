@@ -5,21 +5,21 @@ impl Position {
         Position { x, y }
     }
 
-    pub fn add_to_y(&self, delta_y: i8) -> Position {
+    pub fn add_to_y(self, delta_y: i8) -> Position {
         Position {
             x: self.x,
             y: self.y + delta_y,
         }
     }
 
-    pub fn subtract_from_x(&self, delta_x: i8) -> Position {
+    pub fn subtract_from_x(self, delta_x: i8) -> Position {
         Position {
             x: self.x - delta_x,
             y: self.y,
         }
     }
 
-    pub fn add_to_x(&self, delta_x: i8) -> Position {
+    pub fn add_to_x(self, delta_x: i8) -> Position {
         Position {
             x: self.x + delta_x,
             y: self.y,

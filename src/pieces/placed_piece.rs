@@ -10,24 +10,24 @@ impl PlacedPiece {
         }
     }
 
-    fn with_new_position(&self, position: Position) -> Self {
+    fn with_new_position(self, position: Position) -> Self {
         PlacedPiece {
             shape: self.shape,
             position,
         }
     }
 
-    pub fn drop_by_one(&self) -> Self {
+    pub fn drop_by_one(self) -> Self {
         let position = self.position.add_to_y(MOVE_SPEED);
         self.with_new_position(position)
     }
 
-    pub fn move_left(&self) -> Self {
+    pub fn move_left(self) -> Self {
         let position = self.position.subtract_from_x(MOVE_SPEED);
         self.with_new_position(position)
     }
 
-    pub fn move_right(&self) -> Self {
+    pub fn move_right(self) -> Self {
         let position = self.position.add_to_x(MOVE_SPEED);
         self.with_new_position(position)
     }
