@@ -5,6 +5,9 @@ use super::DefaultMotionController;
 use rules::*;
 use pieces::PlacedPiece;
 
+type Rule = Fn(&RuleSet, &PlacedPiece) -> RuleEvaluationResult;
+type Move = Fn(&PlacedPiece) -> PlacedPiece;
+
 impl DefaultMotionController {
     pub fn new(ruleset: RuleSet) -> Self {
         DefaultMotionController { ruleset }
@@ -13,8 +16,8 @@ impl DefaultMotionController {
     fn move_respecting_rule(
         &self,
         piece_to_move: PlacedPiece,
-        move_to_apply: &Fn(&PlacedPiece) -> PlacedPiece,
-        rule: &Fn(&RuleSet, &PlacedPiece) -> RuleEvaluationResult,
+        move_to_apply: &Move,
+        rule: &Rule,
     ) -> PlacedPiece {
         let new_piece = move_to_apply(&piece_to_move);
         match rule(&self.ruleset, &new_piece) {
@@ -26,8 +29,8 @@ impl DefaultMotionController {
     fn keep_moving_until_rule_no_longer_respected(
         &self,
         piece_to_move: PlacedPiece,
-        move_to_apply: &Fn(&PlacedPiece) -> PlacedPiece,
-        rule: &Fn(&RuleSet, &PlacedPiece) -> RuleEvaluationResult,
+        move_to_apply: &Move,
+        rule: &Rule
     ) -> PlacedPiece {
         let new_piece = move_to_apply(&piece_to_move);
         match rule(&self.ruleset, &new_piece) {
