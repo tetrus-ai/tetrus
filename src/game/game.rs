@@ -17,7 +17,7 @@ impl<'a> Game<'a> {
         }
     }
 
-    pub fn issue_command(&self, command: Command) -> Game {
+    pub fn issue_command(&self, command: Command) -> Self {
         let current = self.motion_controller.move_piece(command, self.current);
         Game {
             next_pieces: self.next_pieces,
