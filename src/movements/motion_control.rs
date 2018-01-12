@@ -75,7 +75,6 @@ mod should {
     use pieces::Position;
     use pieces::*;
     use super::*;
-    use test::Bencher;
 
     #[test]
     fn move_current_to_the_left_when_issued_a_move_left_command() {
@@ -148,8 +147,17 @@ mod should {
         )
     }
 
+}
+
+#[cfg(test)]
+mod bench {
+    use test::Bencher;
+    use pieces::shape::I;
+    use pieces::*;
+    use super::*;
+
     #[bench]
-    fn drop_to_bottom_bench(bencher: &mut Bencher) {
+    fn drop_to_bottom(bencher: &mut Bencher) {
         let ruleset = RuleSet::default();
         let piece_keeper = DefaultMotionController::new(ruleset);
         let piece = PlacedPiece::at_origin_with_shape(I);
