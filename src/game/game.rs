@@ -5,9 +5,9 @@ use pieces::RandomTetrominoServer;
 use pieces::PlacedPiece;
 
 impl<'a> Game<'a> {
-    pub fn default_ruleset(
+    pub fn default_ruleset<MotionControllerType: MotionController>(
         buffer: RandomTetrominoServer,
-        motion_controller: &'a MotionController,
+        motion_controller: &'a MotionControllerType,
     ) -> Self {
         let (next_pieces, current_shape) = buffer.next();
         Game {
