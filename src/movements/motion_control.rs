@@ -151,14 +151,17 @@ mod should {
 
 #[cfg(test)]
 mod bench {
+    use std::u8;
     use test::Bencher;
+    use game::PlayAreaSize;
     use pieces::shape::I;
     use pieces::*;
     use super::*;
 
     #[bench]
     fn drop_to_bottom(bencher: &mut Bencher) {
-        let ruleset = RuleSet::default();
+        let play_area_size: PlayAreaSize = PlayAreaSize::with_width_and_height(3, u8::MAX);
+        let ruleset = RuleSet::with_play_area_size(play_area_size);
         let piece_keeper = DefaultMotionController::new(ruleset);
         let piece = PlacedPiece::at_origin_with_shape(I);
         bencher.iter(|| {
