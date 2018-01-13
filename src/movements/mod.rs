@@ -20,4 +20,5 @@ pub struct DefaultMotionController {
 
 pub trait MotionController: ::std::fmt::Debug {
     fn move_piece(&self, command: Command, piece: PlacedPiece) -> PlacedPiece;
+    fn can_be_moved_further(&self, piece: PlacedPiece) -> bool;
 }

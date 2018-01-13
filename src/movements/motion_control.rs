@@ -67,6 +67,13 @@ impl MotionController for DefaultMotionController {
             ),
         }
     }
+
+    fn can_be_moved_further(&self, piece: PlacedPiece) -> bool {
+        match self.ruleset.above_bottom(piece.drop_by_one()) {
+            RuleEvaluationResult::Respected => true,
+            RuleEvaluationResult::Violated => false
+        }
+    }
 }
 
 #[cfg(test)]
